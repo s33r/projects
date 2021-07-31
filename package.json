@@ -2,13 +2,17 @@
   "name": "aarons-projects",
   "version": "1.0.0",
   "description": "Aaron's Project Repo",
-  "main": "index.js",
+  "private": true,
+  "type": "module",
+  "main": "./automation/cli/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "cli": "node ./automation/cli/index.js"
   },
   "author": "Aaron Willows (aaron@aaronwillows.com)",
   "license": "LGPL-3.0-or-later",
   "devDependencies": {
+    "fs-extra": "^8.1.0",
+    "log4js": "^6.3.0",
     "yargs": "^17.0.1"
   }
 }

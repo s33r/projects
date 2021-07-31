@@ -1,2 +1,8 @@
+**/binaries
 **/node_modules
 **/.artifact
+**/obj
+**/bin
+**/nuget-packages
+.suo
+.dtbcache.v2
