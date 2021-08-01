@@ -6,7 +6,8 @@
   "type": "module",
   "main": "./automation/cli/index.js",
   "scripts": {
-    "cli": "node ./automation/cli/index.js"
+    "cli": "node ./automation/cli/index.js",
+    "cs:lint": "dotnet jb inspectcode --output=./reports/results.txt --format=text \"source\\Aaron.sln\""
   },
   "author": "Aaron Willows (aaron@aaronwillows.com)",
   "license": "LGPL-3.0-or-later",

@@ -46,5 +46,10 @@ namespace Aaron.Core.CommandLine.Syntax
                 Parameters.AddParameter(parameter);
             }
         }
+
+        public override string ToString()
+        {
+            return $"Command: {Name} - {ShortDescription}";
+        }
     }
 }

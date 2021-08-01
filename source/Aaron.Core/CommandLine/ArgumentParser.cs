@@ -45,9 +45,7 @@ namespace Aaron.Core.CommandLine
         public CommandAction ErrorAction { get; set; }
         public CommandAction FatalErrorAction { get; set; }
 
-
-
-        public ParsedCommandLine Run(string[] args)
+        public ParsedCommandLine Parse(string[] args)
         {
             List<CommandLineError> errors = new();
 
@@ -61,24 +59,22 @@ namespace Aaron.Core.CommandLine
                 return emptyCommandLine;
             }
 
-
-            ParsedCommandLine commandLine;
-            CommandAction runAction;
-
             CommandBuilder instancedCommands = new(_commands);
             ParameterBuilder instancedParameters = new(_defaultBuilder);
 
-            if (_commands == null)
-            {
-                commandLine = Parser.Parse(tokens, instancedParameters.ToDictionary(), errors);
-                runAction = DefaultAction;
-            }
-            else
-            {
-                commandLine = Parser.Parse(tokens, instancedCommands.ToDictionary(), errors);
-                runAction = commandLine.Command.OnExecute;
-            }
+            ParsedCommandLine commandLine = _commands == null 
+                ? Parser.Parse(tokens, instancedParameters.ToDictionary(), errors) 
+                : Parser.Parse(tokens, instancedCommands.ToDictionary(), errors);
 
+            return commandLine;
+        }
+
+
+        public ParsedCommandLine Run(ParsedCommandLine commandLine)
+        {
+            CommandAction runAction = _commands == null
+                ? DefaultAction
+                : commandLine.Command.OnExecute;
 
             if (commandLine.HasErrors)
             {
@@ -93,6 +89,11 @@ namespace Aaron.Core.CommandLine
             runAction?.Invoke(commandLine);
 
             return commandLine;
+        }
+
+        public ParsedCommandLine Run(string[] args)
+        {
+            return Run(Parse(args));
         }
 
         

@@ -1,0 +1,129 @@
+﻿Solution source\Aaron.sln
+    Project Aaron.Automation.Cli
+      Aaron.Automation.Cli\Program.cs:7 Class 'Program' is never instantiated
+      Aaron.Automation.Cli\Program.cs:19 Parameter 'c' is never used
+      Aaron.Automation.Cli\Program.cs:30 Local variable 'commandLine' is never used
+    
+    Project Aaron.Core
+      Aaron.Core\CommandLine\ArgumentParser.cs: Using directive is not required by the code and can be safely removed
+      Aaron.Core\CommandLine\ArgumentParser.cs:3 Using directive is not required by the code and can be safely removed
+      Aaron.Core\CommandLine\ArgumentParser.cs:4 Using directive is not required by the code and can be safely removed
+      Aaron.Core\CommandLine\ArgumentParser.cs:5 Using directive is not required by the code and can be safely removed
+      Aaron.Core\CommandLine\ArgumentParser.cs:22 Convert to '??' expression
+      Aaron.Core\CommandLine\ArgumentParser.cs:35 Convert to '??' expression
+      Aaron.Core\CommandLine\ArgumentParser.cs:48 Method 'Parse' can be made private
+      Aaron.Core\CommandLine\ArgumentParser.cs:73 Method 'Run' can be made private
+      Aaron.Core\CommandLine\CommandBuilder.cs:3 Using directive is not required by the code and can be safely removed
+      Aaron.Core\CommandLine\CommandBuilder.cs:4 Using directive is not required by the code and can be safely removed
+      Aaron.Core\CommandLine\CommandBuilder.cs:5 Using directive is not required by the code and can be safely removed
+      Aaron.Core\CommandLine\CommandBuilder.cs:13 Redundant type specification
+      Aaron.Core\CommandLine\CommandBuilder.cs:32 Method 'HasCommand' is never used
+      Aaron.Core\CommandLine\CommandBuilder.cs:37 Method 'ToList' can be made private
+      Aaron.Core\CommandLine\CommandLineError.cs: Using directive is not required by the code and can be safely removed
+      Aaron.Core\CommandLine\CommandLineError.cs:2 Using directive is not required by the code and can be safely removed
+      Aaron.Core\CommandLine\CommandLineError.cs:3 Using directive is not required by the code and can be safely removed
+      Aaron.Core\CommandLine\CommandLineError.cs:4 Using directive is not required by the code and can be safely removed
+      Aaron.Core\CommandLine\CommandLineError.cs:5 Using directive is not required by the code and can be safely removed
+      Aaron.Core\CommandLine\CommandLineError.cs:11 Auto-property accessor is never used
+      Aaron.Core\CommandLine\CommandLineError.cs:11 Property can be made init-only
+      Aaron.Core\CommandLine\CommandLineError.cs:12 Auto-property accessor is never used
+      Aaron.Core\CommandLine\CommandLineError.cs:12 Property can be made init-only
+      Aaron.Core\CommandLine\CommandLineError.cs:13 Property 'ArgumentPosition' is never used
+      Aaron.Core\CommandLine\CommandLineError.cs:15 Auto-property accessor is never used
+      Aaron.Core\CommandLine\CommandLineError.cs:15 Property can be made init-only
+      Aaron.Core\CommandLine\CommandLineError.cs:17 Property can be made init-only
+      Aaron.Core\CommandLine\DuplicateParameterException.cs:11 Constructor 'DuplicateParameterException' is never used
+      Aaron.Core\CommandLine\ParameterBuilder.cs:3 Using directive is not required by the code and can be safely removed
+      Aaron.Core\CommandLine\ParameterBuilder.cs:4 Using directive is not required by the code and can be safely removed
+      Aaron.Core\CommandLine\ParameterBuilder.cs:5 Using directive is not required by the code and can be safely removed
+      Aaron.Core\CommandLine\ParameterBuilder.cs:16 Method 'AddParameter' return value is never used
+      Aaron.Core\CommandLine\ParameterBuilder.cs:33 Method 'HasParameter' is never used
+      Aaron.Core\CommandLine\Syntax\Command.cs: Using directive is not required by the code and can be safely removed
+      Aaron.Core\CommandLine\Syntax\Command.cs:8 Property can be made init-only
+      Aaron.Core\CommandLine\Syntax\Command.cs:9 Property can be made init-only
+      Aaron.Core\CommandLine\Syntax\Command.cs:10 Property can be made init-only
+      Aaron.Core\CommandLine\Syntax\Parameter.cs:8 Accessor 'Name.set' can be made private
+      Aaron.Core\CommandLine\Syntax\Parameter.cs:8 Auto-property can be made get-only
+      Aaron.Core\CommandLine\Syntax\Parameter.cs:9 Accessor 'Alias.set' can be made private
+      Aaron.Core\CommandLine\Syntax\Parameter.cs:9 Auto-property can be made get-only
+      Aaron.Core\CommandLine\Syntax\Parameter.cs:11 Property can be made init-only
+      Aaron.Core\CommandLine\Syntax\Parameter.cs:12 Property 'DefaultValue' can be made private
+      Aaron.Core\CommandLine\Syntax\Parameter.cs:12 Auto-property can be made get-only
+      Aaron.Core\CommandLine\Syntax\Parameter.cs:13 Property 'Options' can be made private
+      Aaron.Core\CommandLine\Syntax\Parameter.cs:13 Auto-property can be made get-only
+      Aaron.Core\CommandLine\Syntax\Parameter.cs:14 Property 'OptionDescription' can be made private
+      Aaron.Core\CommandLine\Syntax\Parameter.cs:14 Auto-property can be made get-only
+      Aaron.Core\CommandLine\Syntax\Parameter.cs:15 Property 'ShortDescription' can be made private
+      Aaron.Core\CommandLine\Syntax\Parameter.cs:15 Auto-property can be made get-only
+      Aaron.Core\CommandLine\Syntax\Parameter.cs:16 Property 'LongDescription' can be made private
+      Aaron.Core\CommandLine\Syntax\Parameter.cs:16 Auto-property can be made get-only
+      Aaron.Core\CommandLine\Syntax\Parameter.cs:31 Constructor 'Parameter' can be made private
+      Aaron.Core\CommandLine\Syntax\Parameter.cs:55 Constructor 'Parameter' is never used
+      Aaron.Core\CommandLine\Syntax\Parameter.cs:58 Constructor 'Parameter' is never used
+      Aaron.Core\CommandLine\Syntax\Parameter.cs:58 Parameter 'required' is never used
+      Aaron.Core\CommandLine\Syntax\Parameter.cs:64 Constructor 'Parameter' is never used
+      Aaron.Core\CommandLine\Syntax\Parameter.cs:67 Constructor 'Parameter' is never used
+      Aaron.Core\CommandLine\Syntax\Parameter.cs:70 Constructor 'Parameter' is never used
+      Aaron.Core\CommandLine\Syntax\Parameter.cs:70 Parameter 'required' is never used
+      Aaron.Core\CommandLine\Syntax\Parameter.cs:73 Constructor 'Parameter' is never used
+      Aaron.Core\CommandLine\Syntax\Parameter.cs:82 Constructor 'Parameter' is never used
+      Aaron.Core\CommandLine\Syntax\ParsedCommandLine.cs:7 Property can be made init-only
+      Aaron.Core\CommandLine\Syntax\ParsedCommandLine.cs:8 Property can be made init-only
+      Aaron.Core\CommandLine\Syntax\ParsedCommandLine.cs:9 Property can be made init-only
+      Aaron.Core\CommandLine\Syntax\Parser.cs: Using directive is not required by the code and can be safely removed
+      Aaron.Core\CommandLine\Syntax\Parser.cs:4 Using directive is not required by the code and can be safely removed
+      Aaron.Core\CommandLine\Syntax\Parser.cs:5 Using directive is not required by the code and can be safely removed
+      Aaron.Core\CommandLine\Syntax\Parser.cs:100 Introduce optional parameter(s) for method 'void CheckRequired(IEnumerable<IToken>, List<Parameter>, List<CommandLineError>, string)'
+      Aaron.Core\CommandLine\Syntax\Parser.cs:137 Possible multiple enumeration
+      Aaron.Core\CommandLine\Syntax\Parser.cs:151 Possible multiple enumeration
+      Aaron.Core\CommandLine\Syntax\Parser.cs:184 Possible multiple enumeration
+      Aaron.Core\CommandLine\Syntax\Parser.cs:192 Possible multiple enumeration
+      Aaron.Core\CommandLine\Tokens\BreakToken.cs:2 Using directive is not required by the code and can be safely removed
+      Aaron.Core\CommandLine\Tokens\BreakToken.cs:3 Using directive is not required by the code and can be safely removed
+      Aaron.Core\CommandLine\Tokens\BreakToken.cs:4 Using directive is not required by the code and can be safely removed
+      Aaron.Core\CommandLine\Tokens\BreakToken.cs:5 Using directive is not required by the code and can be safely removed
+      Aaron.Core\CommandLine\Tokens\BreakToken.cs:12 Auto-property can be made get-only
+      Aaron.Core\CommandLine\Tokens\IToken.cs: Using directive is not required by the code and can be safely removed
+      Aaron.Core\CommandLine\Tokens\IToken.cs:8 Enum member 'Unknown' is never used
+      Aaron.Core\CommandLine\Tokens\ParameterToken.cs: Using directive is not required by the code and can be safely removed
+      Aaron.Core\CommandLine\Tokens\ParameterToken.cs:65 Constructor 'ParameterToken' is never used
+      Aaron.Core\CommandLine\Tokens\SwitchToken.cs:2 Using directive is not required by the code and can be safely removed
+      Aaron.Core\CommandLine\Tokens\SwitchToken.cs:3 Using directive is not required by the code and can be safely removed
+      Aaron.Core\CommandLine\Tokens\SwitchToken.cs:4 Using directive is not required by the code and can be safely removed
+      Aaron.Core\CommandLine\Tokens\SwitchToken.cs:5 Using directive is not required by the code and can be safely removed
+      Aaron.Core\CommandLine\Tokens\SwitchToken.cs:13 Auto-property accessor is never used
+      Aaron.Core\CommandLine\Tokens\ValueToken.cs: Using directive is not required by the code and can be safely removed
+      Aaron.Core\CommandLine\Tokens\ValueToken.cs:2 Using directive is not required by the code and can be safely removed
+      Aaron.Core\CommandLine\Tokens\ValueToken.cs:3 Using directive is not required by the code and can be safely removed
+      Aaron.Core\CommandLine\Tokens\ValueToken.cs:4 Using directive is not required by the code and can be safely removed
+      Aaron.Core\CommandLine\Tokens\ValueToken.cs:5 Using directive is not required by the code and can be safely removed
+      Aaron.Core\CommandLine\Tokens\ValueToken.cs:12 Auto-property can be made get-only
+      Aaron.Core\CommandLine\Tokens\ValueToken.cs:13 Auto-property accessor is never used
+    
+    Project Aaron.Core.Tests
+      Aaron.Core.Tests\CommandLine\Syntax\TestCommand.cs: Using directive is not required by the code and can be safely removed
+      Aaron.Core.Tests\CommandLine\Syntax\TestCommand.cs:2 Using directive is not required by the code and can be safely removed
+      Aaron.Core.Tests\CommandLine\Syntax\TestCommand.cs:3 Using directive is not required by the code and can be safely removed
+      Aaron.Core.Tests\CommandLine\Syntax\TestCommand.cs:4 Using directive is not required by the code and can be safely removed
+      Aaron.Core.Tests\CommandLine\Syntax\TestCommand.cs:5 Using directive is not required by the code and can be safely removed
+      Aaron.Core.Tests\CommandLine\Syntax\TestCommand.cs:21 Use local function
+      Aaron.Core.Tests\CommandLine\Syntax\TestCommand.cs:48 Use local function
+      Aaron.Core.Tests\CommandLine\Syntax\TestParser.cs:159 Possible 'System.NullReferenceException'
+      Aaron.Core.Tests\CommandLine\TestArgumentParser.cs:2 Using directive is not required by the code and can be safely removed
+      Aaron.Core.Tests\CommandLine\TestArgumentParser.cs:3 Using directive is not required by the code and can be safely removed
+      Aaron.Core.Tests\CommandLine\TestArgumentParser.cs:4 Using directive is not required by the code and can be safely removed
+      Aaron.Core.Tests\CommandLine\TestArgumentParser.cs:5 Using directive is not required by the code and can be safely removed
+      Aaron.Core.Tests\CommandLine\TestArgumentParser.cs:22 Expression is always null
+      Aaron.Core.Tests\CommandLine\TestArgumentParser.cs:44 Parameter 'line' is never used
+      Aaron.Core.Tests\CommandLine\TestArgumentParser.cs:46 Local variable 'commandLine' is never used
+      Aaron.Core.Tests\CommandLine\TestArgumentParser.cs:46 Expression is always null
+      Aaron.Core.Tests\CommandLine\TestArgumentParser.cs:59 Parameter 'line' is never used
+      Aaron.Core.Tests\CommandLine\TestArgumentParser.cs:61 Local variable 'commandLine' is never used
+      Aaron.Core.Tests\CommandLine\TestArgumentParser.cs:61 Expression is always null
+      Aaron.Core.Tests\CommandLine\TestArgumentParser.cs:74 Parameter 'line' is never used
+      Aaron.Core.Tests\CommandLine\TestArgumentParser.cs:81 Local variable 'commandLine' is never used
+      Aaron.Core.Tests\CommandLine\TestArgumentParser.cs:104 Local variable 'commandLine' is never used
+      Aaron.Core.Tests\CommandLine\TestArgumentParser.cs:121 Parameter 'line' is never used
+      Aaron.Core.Tests\CommandLine\TestArgumentParser.cs:126 Local variable 'commandLine' is never used
+    
+  

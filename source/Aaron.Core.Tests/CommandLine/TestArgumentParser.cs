@@ -16,9 +16,10 @@ namespace Aaron.Core.Tests.CommandLine
         [TestMethod]
         public void TestNullArguments()
         {
+            string[] args = null;
             ArgumentParser parser = new();
 
-            ParsedCommandLine commandLine = parser.Run(null);
+            ParsedCommandLine commandLine = parser.Run(args);
 
             Assert.AreEqual(true, commandLine.HasErrors);
         }
@@ -36,12 +37,13 @@ namespace Aaron.Core.Tests.CommandLine
         [TestMethod]
         public void TestActionInvokedArguments()
         {
+            string[] args = null;
             bool functionCalled = false;
 
             ArgumentParser parser = new();
             parser.DefaultAction += line => functionCalled = true;
 
-            ParsedCommandLine commandLine = parser.Run(null);
+            ParsedCommandLine commandLine = parser.Run(args);
 
             Assert.AreEqual(true, functionCalled);
         }
@@ -50,12 +52,13 @@ namespace Aaron.Core.Tests.CommandLine
         [TestMethod]
         public void TestErrorActionInvokedArguments()
         {
+            string[] args = null;
             bool functionCalled = false;
 
             ArgumentParser parser = new();
             parser.ErrorAction += line => functionCalled = true;
 
-            ParsedCommandLine commandLine = parser.Run(null);
+            ParsedCommandLine commandLine = parser.Run(args);
 
             Assert.AreEqual(true, functionCalled);
         }

@@ -83,7 +83,10 @@ namespace Aaron.Core.CommandLine.Syntax
             : this(string.Empty, string.Empty, Array.Empty<string>(), false, string.Empty) { }
 
 
-
+        public override string ToString()
+        {
+            return $"Parameter: {Name} - {ShortDescription}";
+        }
 
 
 

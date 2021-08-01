@@ -4,5 +4,6 @@
 **/obj
 **/bin
 **/nuget-packages
+reports
 .suo
 .dtbcache.v2
