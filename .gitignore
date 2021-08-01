@@ -4,6 +4,7 @@
 **/obj
 **/bin
 **/nuget-packages
+**/.vs
 output
 reports
 .suo
