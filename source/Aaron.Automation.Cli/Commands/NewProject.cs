@@ -13,36 +13,32 @@
 // MA 02111-1307 USA
 
 using System;
-using Aaron.Automation.Cli.Commands;
-using Aaron.Core.CommandLine;
 using Aaron.Core.CommandLine.Syntax;
 
-namespace Aaron.Automation.Cli
+namespace Aaron.Automation.Cli.Commands
 {
-    internal class Program
+    internal class NewProject
     {
-        private static void Main(string[] args)
+        public static Command GetCommand()
         {
-            ArgumentParser parser = new ArgumentParser();
+            Command result = new Command
+            {
+                Name = "new",
+                ShortDescription = "Creates a new project.",
+                LongDescription = "Creates a new project..",
+                OnExecute = OnExecute,
+            };
 
-            parser.Commands.AddCommand(Clean.GetCommand());
-            parser.Commands.AddCommand(NewProject.GetCommand());
-            parser.Commands.AddCommand(Publish.GetCommand());
+            Parameter nameParameter = new Parameter {Name = "name", Alias = "n", Required = true};
 
+            result.Parameters.AddParameter(nameParameter);
 
-            string[] mockArgs = {"publish"};
-
-            Run(mockArgs, parser);
+            return result;
         }
 
-        private static void Run(string[] args, ArgumentParser parser)
+        private static void OnExecute(ParsedCommandLine commandLine)
         {
-            Console.WriteLine("Build CLI");
-            Console.WriteLine("args = {0}", string.Join(' ', args));
-
-            ParsedCommandLine commandLine = parser.Run(args);
-
-            Console.WriteLine("-- Complete --");
+            Console.WriteLine("Hello World");
         }
     }
 }
