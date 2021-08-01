@@ -16,11 +16,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aaron.MassEffect.Core", "source\Aaron.MassEffect.Core\Aaron.MassEffect.Core.csproj", "{E54278A4-FE25-4612-86F6-B1A70C3C350F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aaron.MassEffect.Core", "source\Aaron.MassEffect.Core\Aaron.MassEffect.Core.csproj", "{E54278A4-FE25-4612-86F6-B1A70C3C350F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aaron.MassEffect.Coalesced", "source\Aaron.MassEffect.Coalesced\Aaron.MassEffect.Coalesced.csproj", "{348A6A23-B350-44EA-BEAE-B72B50E2329E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aaron.MassEffect.Coalesced", "source\Aaron.MassEffect.Coalesced\Aaron.MassEffect.Coalesced.csproj", "{348A6A23-B350-44EA-BEAE-B72B50E2329E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aaron.MassEffect.CommandLine", "source\Aaron.MassEffect.CommandLine\Aaron.MassEffect.CommandLine.csproj", "{9B0ED163-2E29-467C-BE54-32D22027ACF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aaron.MassEffect.CommandLine", "source\Aaron.MassEffect.CommandLine\Aaron.MassEffect.CommandLine.csproj", "{9B0ED163-2E29-467C-BE54-32D22027ACF3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -122,10 +122,5 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3D1DF431-2EED-4919-B262-72068A389174}
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{E54278A4-FE25-4612-86F6-B1A70C3C350F} = {57496194-0EDA-4E12-BCED-F368810242A9}
-		{348A6A23-B350-44EA-BEAE-B72B50E2329E} = {A3775A0A-8D83-4F5F-8412-19CD7DFB765A}
-		{9B0ED163-2E29-467C-BE54-32D22027ACF3} = {46630CA5-4BF2-4367-9FAF-5505F4B1D9BB}
 	EndGlobalSection
 EndGlobal
