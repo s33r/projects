@@ -14,6 +14,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Management.Automation;
 using Aaron.Core.CommandLine.Syntax;
 
 namespace Aaron.Automation.Cli.Commands
@@ -35,6 +36,12 @@ namespace Aaron.Automation.Cli.Commands
 
         private static void OnExecute(ParsedCommandLine commandLine)
         {
+            PowerShell shell = PowerShell.Create();
+            shell.Commands.AddCommand("ls");
+
+            shell.Invoke();
+
+
             ProcessStartInfo startInfo = new ProcessStartInfo("cmd")
             {
                 CreateNoWindow = true,
@@ -44,14 +51,12 @@ namespace Aaron.Automation.Cli.Commands
                 Arguments = "dotnet publish ./source -o ./output2",
             };
 
-            using (Process process = new Process())
-            {
-                process.StartInfo = startInfo;
 
-                bool result = process.Start();
+            Process process = Process.Start(startInfo);
 
-                Console.WriteLine($"True! {result}");
-            }
+            process.WaitForExit();
+
+            Console.WriteLine($"True! {process.ExitCode}");
         }
     }
 }
