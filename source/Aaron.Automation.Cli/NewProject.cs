@@ -12,16 +12,10 @@
 // program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 // MA 02111-1307 USA
 
-namespace Aaron.Core.CommandLine
+namespace Aaron.Automation.Cli
 {
-    public class CommandLineError
+    internal class NewProject
     {
-        public int ArgumentPosition { get; set; }
-        public string CommandName { get; set; } = string.Empty;
-
-        public bool Fatal { get; set; }
-
-        public string Message { get; set; } = string.Empty;
-        public string ParameterName { get; set; } = string.Empty;
+        public void Register()
     }
 }
