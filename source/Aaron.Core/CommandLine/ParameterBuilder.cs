@@ -1,17 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Aaron.Core.CommandLine.Syntax;
 
 namespace Aaron.Core.CommandLine
 {
     public class ParameterBuilder
     {
+        private readonly Dictionary<string, Parameter> _parameters = new Dictionary<string, Parameter>();
 
+        public ParameterBuilder() { }
 
-        private readonly Dictionary<string, Parameter> _parameters = new();
+        public ParameterBuilder(ParameterBuilder other)
+        {
+            if (other == null) { return; }
+
+            List<Parameter> otherCommands = other.ToList();
+
+            foreach (Parameter parameter in otherCommands) { AddParameter(new Parameter(parameter)); }
+        }
 
         public ParameterBuilder AddParameter(Parameter parameter)
         {
@@ -20,10 +26,7 @@ namespace Aaron.Core.CommandLine
                 throw new ArgumentException("The name of the parameter cannot be null.");
             }
 
-            if (_parameters.ContainsKey(parameter.Name))
-            {
-                throw new DuplicateParameterException(parameter.Name);
-            }
+            if (_parameters.ContainsKey(parameter.Name)) { throw new DuplicateParameterException(parameter.Name); }
 
             _parameters.Add(parameter.Name, parameter);
 
@@ -40,14 +43,9 @@ namespace Aaron.Core.CommandLine
             _parameters[name].Value = value;
         }
 
-        public List<Parameter> ToList()
-        {
-            return new(_parameters.Values);
-        }
-
         public Dictionary<string, Parameter> ToDictionary()
         {
-            Dictionary<string, Parameter> result = new();
+            Dictionary<string, Parameter> result = new Dictionary<string, Parameter>();
 
             foreach (KeyValuePair<string, Parameter> keyValuePair in _parameters)
             {
@@ -57,21 +55,9 @@ namespace Aaron.Core.CommandLine
             return result;
         }
 
-        public ParameterBuilder() { }
-
-        public ParameterBuilder(ParameterBuilder other)
+        public List<Parameter> ToList()
         {
-            if (other == null)
-            {
-                return;
-            }
-
-            List<Parameter> otherCommands = other.ToList();
-
-            foreach (Parameter parameter in otherCommands)
-            {
-                AddParameter(new Parameter(parameter));
-            }
+            return new List<Parameter>(_parameters.Values);
         }
     }
 }

@@ -4,7 +4,6 @@ namespace Aaron.Core.CommandLine
 {
     public class DuplicateParameterException : Exception
     {
-
         public DuplicateParameterException(string parameterName)
             : base($"The parameter {parameterName} already exists!") { }
 

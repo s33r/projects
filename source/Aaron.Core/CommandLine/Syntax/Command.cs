@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Aaron.Core.CommandLine.Syntax
 {
     public class Command
     {
-        public string Name { get; set; }
-        public string ShortDescription { get; set; }
         public string LongDescription { get; set; }
-        public ParameterBuilder Parameters { get; } = new();
+        public string Name { get; set; }
         public CommandAction OnExecute { get; set; }
+        public ParameterBuilder Parameters { get; } = new ParameterBuilder();
+        public string ShortDescription { get; set; }
 
         public Command() { }
 
@@ -20,16 +19,13 @@ namespace Aaron.Core.CommandLine.Syntax
             ShortDescription = string.Empty;
             LongDescription = string.Empty;
 
-            foreach (Parameter parameter in supportedParameters)
-            {
-                Parameters.AddParameter(parameter);
-            }
+            foreach (Parameter parameter in supportedParameters) { Parameters.AddParameter(parameter); }
         }
 
         public Command(string name)
         {
             Name = name;
-            
+
             ShortDescription = string.Empty;
             LongDescription = string.Empty;
         }
@@ -41,10 +37,7 @@ namespace Aaron.Core.CommandLine.Syntax
             LongDescription = otherCommand.LongDescription;
             OnExecute = otherCommand.OnExecute;
 
-            foreach (Parameter parameter in otherCommand.Parameters.ToList())
-            {
-                Parameters.AddParameter(parameter);
-            }
+            foreach (Parameter parameter in otherCommand.Parameters.ToList()) { Parameters.AddParameter(parameter); }
         }
 
         public override string ToString()

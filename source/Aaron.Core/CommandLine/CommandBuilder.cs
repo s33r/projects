@@ -1,16 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Aaron.Core.CommandLine.Syntax;
 
 namespace Aaron.Core.CommandLine
 {
     public class CommandBuilder
     {
-
         private readonly Dictionary<string, Command> _commands = new Dictionary<string, Command>();
+
+        public CommandBuilder() { }
+
+        public CommandBuilder(CommandBuilder other)
+        {
+            if (other == null) { return; }
+
+            List<Command> otherCommands = other.ToList();
+
+            foreach (Command command in otherCommands) { AddCommand(new Command(command)); }
+        }
 
         public CommandBuilder AddCommand(Command command)
         {
@@ -19,10 +26,7 @@ namespace Aaron.Core.CommandLine
                 throw new ArgumentException("The name of the command cannot be null.");
             }
 
-            if (_commands.ContainsKey(command.Name))
-            {
-                throw new DuplicateCommandException(command.Name);
-            }
+            if (_commands.ContainsKey(command.Name)) { throw new DuplicateCommandException(command.Name); }
 
             _commands.Add(command.Name, command);
 
@@ -34,14 +38,9 @@ namespace Aaron.Core.CommandLine
             return _commands.ContainsKey(name);
         }
 
-        public List<Command> ToList()
-        {
-            return new (_commands.Values);
-        }
-
         public Dictionary<string, Command> ToDictionary()
         {
-            Dictionary<string, Command> result = new();
+            Dictionary<string, Command> result = new Dictionary<string, Command>();
 
             foreach (KeyValuePair<string, Command> keyValuePair in _commands)
             {
@@ -51,22 +50,9 @@ namespace Aaron.Core.CommandLine
             return result;
         }
 
-        public CommandBuilder() { }
-
-        public CommandBuilder(CommandBuilder other)
+        public List<Command> ToList()
         {
-            if (other == null)
-            {
-                return;
-            }
-
-            List<Command> otherCommands = other.ToList();
-
-            foreach (Command command in otherCommands)
-            {
-                AddCommand(new Command(command));
-            }
+            return new List<Command>(_commands.Values);
         }
-
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Aaron.Core.CommandLine;
+﻿using Aaron.Core.CommandLine;
 using Aaron.Core.CommandLine.Syntax;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -18,20 +13,16 @@ namespace Aaron.Core.Tests.CommandLine.Syntax
             string longDescription = "longDescription";
             string shortDescription = "shortDescription";
             string name = "name";
-            CommandAction action = (e) => Assert.AreEqual(name, e.Command.Name);
+            CommandAction action = e => Assert.AreEqual(name, e.Command.Name);
 
 
-
-            Command originalCommand = new()
+            Command originalCommand = new Command
             {
-                LongDescription = longDescription,
-                ShortDescription = shortDescription,
-                Name = name,
-                OnExecute = action,
+                LongDescription = longDescription, ShortDescription = shortDescription, Name = name, OnExecute = action,
             };
 
 
-            Command newCommand = new(originalCommand);
+            Command newCommand = new Command(originalCommand);
 
             Assert.AreEqual(longDescription, newCommand.LongDescription);
             Assert.AreEqual(shortDescription, newCommand.ShortDescription);
@@ -45,25 +36,21 @@ namespace Aaron.Core.Tests.CommandLine.Syntax
             string longDescription = "longDescription";
             string shortDescription = "shortDescription";
             string name = "name";
-            CommandAction action = (e) => Assert.AreEqual(name, e.Command.Name);
+            CommandAction action = e => Assert.AreEqual(name, e.Command.Name);
 
-            Parameter parameter = new("parameter", "p");
+            Parameter parameter = new Parameter("parameter", "p");
 
 
-            Command originalCommand = new()
+            Command originalCommand = new Command
             {
-                LongDescription = longDescription,
-                ShortDescription = shortDescription,
-                Name = name,
-                OnExecute = action,
+                LongDescription = longDescription, ShortDescription = shortDescription, Name = name, OnExecute = action,
             };
 
             originalCommand.Parameters.AddParameter(parameter);
 
-            Command newCommand = new(originalCommand);
+            Command newCommand = new Command(originalCommand);
 
             Assert.AreEqual("parameter", newCommand.Parameters.ToList()[0].Name);
-
         }
     }
 }

@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-
-namespace Aaron.Core.CommandLine.Tokens
+﻿namespace Aaron.Core.CommandLine.Tokens
 {
-
     public enum TokenTypes
     {
         Unknown,
@@ -14,9 +11,8 @@ namespace Aaron.Core.CommandLine.Tokens
 
     public interface IToken
     {
-        TokenTypes TokenType { get; }
-
         string Name { get; }
+        TokenTypes TokenType { get; }
         string Value { get; }
         IToken Clean();
         IToken Collapse(IToken lookAhead, out bool consumed, out bool continueLook);

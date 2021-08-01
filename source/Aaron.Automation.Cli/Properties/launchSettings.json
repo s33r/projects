@@ -1,8 +1,8 @@
 {
-  "profiles": {
-    "Aaron.Automation.Cli": {
-      "commandName": "Project",
-      "commandLineArgs": "--name hello -location hope /oops ok \"to gether\" -- this is -break text"
+    "profiles": {
+        "Aaron.Automation.Cli": {
+            "commandName": "Project",
+            "commandLineArgs": "--name hello -location hope /oops ok \"to gether\" -- this is -break text"
+        }
     }
-  }
 }

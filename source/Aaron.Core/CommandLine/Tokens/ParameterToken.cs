@@ -1,32 +1,32 @@
-﻿using System;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Aaron.Core.Tests")]
+
 namespace Aaron.Core.CommandLine.Tokens
 {
     public class ParameterToken : IToken
     {
-        public TokenTypes TokenType => TokenTypes.Parameter;
-        public string Name { get; private set; }
-        public string Value { get; private set; }
+        public ParameterToken(string name, string value)
+        {
+            Name = name;
+            Value = value;
+        }
+
+        public ParameterToken(string name)
+            : this(name, string.Empty) { }
+
+        public ParameterToken() { }
+
         public IToken Clean()
         {
             int index;
             for (index = 0; index < Name.Length; index++)
             {
-                if (Name[index] != '-')
-                {
-                    break;
-                }
+                if (Name[index] != '-') { break; }
             }
 
             Name = Name.Substring(index);
 
-            return this;
-        }
-
-        public IToken Convert()
-        {
             return this;
         }
 
@@ -53,16 +53,14 @@ namespace Aaron.Core.CommandLine.Tokens
             return this;
         }
 
-
-        public ParameterToken(string name, string value)
+        public IToken Convert()
         {
-            Name = name;
-            Value = value;
+            return this;
         }
-        public ParameterToken(string name)
-            :this(name, string.Empty) { }
 
-        public ParameterToken() { }
+        public string Name { get; private set; }
+        public TokenTypes TokenType => TokenTypes.Parameter;
+        public string Value { get; private set; }
 
         public static bool Match(string name)
         {

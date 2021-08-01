@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aaron.Core", "Aaron.Core\Aaron.Core.csproj", "{AC53DC40-FC0B-450F-A142-76D6B598CD41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aaron.Core", "Aaron.Core\Aaron.Core.csproj", "{AC53DC40-FC0B-450F-A142-76D6B598CD41}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aaron.Automation.Cli", "Aaron.Automation.Cli\Aaron.Automation.Cli.csproj", "{B1774E66-1215-4F3D-810C-D4C84F2B0D36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aaron.Automation.Cli", "Aaron.Automation.Cli\Aaron.Automation.Cli.csproj", "{B1774E66-1215-4F3D-810C-D4C84F2B0D36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aaron.Core.Tests", "Aaron.Core.Tests\Aaron.Core.Tests.csproj", "{937EA98F-EF3D-45BB-ACA7-795FF3397F16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aaron.Core.Tests", "Aaron.Core.Tests\Aaron.Core.Tests.csproj", "{937EA98F-EF3D-45BB-ACA7-795FF3397F16}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,9 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{AC53DC40-FC0B-450F-A142-76D6B598CD41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -58,5 +55,11 @@ Global
 		{937EA98F-EF3D-45BB-ACA7-795FF3397F16}.Release|x64.Build.0 = Release|Any CPU
 		{937EA98F-EF3D-45BB-ACA7-795FF3397F16}.Release|x86.ActiveCfg = Release|Any CPU
 		{937EA98F-EF3D-45BB-ACA7-795FF3397F16}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3D1DF431-2EED-4919-B262-72068A389174}
 	EndGlobalSection
 EndGlobal

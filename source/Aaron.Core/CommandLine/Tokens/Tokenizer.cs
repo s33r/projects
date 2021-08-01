@@ -5,30 +5,31 @@ namespace Aaron.Core.CommandLine.Tokens
 {
     public static class Tokenizer
     {
-        private static IToken CreateToken(string name)
+        public static List<IToken> Parse(string[] args, List<CommandLineError> errors)
         {
-            if (BreakToken.Match(name))
+            if (args == null || args.Length == 0)
             {
-                return new BreakToken(name);
+                errors.Add(new CommandLineError {Message = "The are no arguments to tokenize."});
+
+                return new List<IToken>();
             }
 
-            if (SwitchToken.Match(name))
-            {
-                return new SwitchToken(name);
-            }
+            List<IToken> tokens = args
+                                  .Select(CreateToken)
+                                  .Select(t => t.Clean())
+                                  .ToList();
 
-            if (ParameterToken.Match(name))
-            {
-                return new ParameterToken(name);
-            }
+            tokens = CollapseTokens(tokens)
+                     .Select(t => t.Convert())
+                     .ToList();
 
-            return new ValueToken(name);
+            return tokens;
         }
 
         private static IEnumerable<IToken> CollapseTokens(IEnumerable<IToken> tokens)
         {
-            List<IToken> result = new();
-            Queue<IToken> tokenQueue = new(tokens);
+            List<IToken> result = new List<IToken>();
+            Queue<IToken> tokenQueue = new Queue<IToken>(tokens);
 
             while (tokenQueue.Count > 0)
             {
@@ -37,15 +38,14 @@ namespace Aaron.Core.CommandLine.Tokens
 
                 while (continueLook)
                 {
-                    IToken nextToken = tokenQueue.Count > 0 ? tokenQueue.Peek() : null;
+                    IToken nextToken = tokenQueue.Count > 0
+                        ? tokenQueue.Peek()
+                        : null;
 
                     token = token.Collapse(nextToken, out bool consumed, out bool outContinueLook);
                     continueLook = outContinueLook;
 
-                    if (consumed)
-                    {
-                        tokenQueue.Dequeue();
-                    }
+                    if (consumed) { tokenQueue.Dequeue(); }
                 }
 
                 result.Add(token);
@@ -54,28 +54,15 @@ namespace Aaron.Core.CommandLine.Tokens
             return result;
         }
 
-        public static List<IToken> Parse(string[] args, List<CommandLineError> errors)
+        private static IToken CreateToken(string name)
         {
-            if (args == null || args.Length == 0)
-            {
-                errors.Add(new CommandLineError()
-                {
-                    Message = "The are no arguments to tokenize.",
-                });
+            if (BreakToken.Match(name)) { return new BreakToken(name); }
 
-                return new List<IToken>();
-            }
+            if (SwitchToken.Match(name)) { return new SwitchToken(name); }
 
-            List<IToken> tokens = args
-                .Select(CreateToken)
-                .Select(t => t.Clean())
-                .ToList();
+            if (ParameterToken.Match(name)) { return new ParameterToken(name); }
 
-            tokens = CollapseTokens(tokens)
-                .Select(t => t.Convert())
-                .ToList();
-
-            return tokens;
+            return new ValueToken(name);
         }
     }
 }

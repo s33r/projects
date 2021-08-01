@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Aaron.Core.CommandLine.Tokens
+﻿namespace Aaron.Core.CommandLine.Tokens
 {
     public class ValueToken : IToken
     {
-        public TokenTypes TokenType => TokenTypes.Value;
-        public string Name { get; private set; }
-        public string Value { get; private set; }
+        public ValueToken(string value)
+        {
+            Name = value;
+        }
+
         public IToken Clean()
         {
             return this;
@@ -29,15 +25,13 @@ namespace Aaron.Core.CommandLine.Tokens
             return new ParameterToken(Name, "true");
         }
 
-        public ValueToken(string value)
-        {
-            Name = value;
-        }
+        public string Name { get; }
+        public TokenTypes TokenType => TokenTypes.Value;
+        public string Value { get; private set; }
 
         public override string ToString()
         {
             return $"[{TokenType}] {Name} = {Value}";
         }
-
     }
 }
