@@ -14,8 +14,5 @@
 
 namespace Aaron.Automation.Cli
 {
-    internal class NewProject
-    {
-        public void Register()
-    }
+    internal class NewProject { }
 }
