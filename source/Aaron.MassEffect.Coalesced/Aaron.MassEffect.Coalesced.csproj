@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Aaron.Binary\Aaron.Binary.csproj" />
+    <ProjectReference Include="..\Aaron.Core\Aaron.Core.csproj" />
+    <ProjectReference Include="..\Aaron.MassEffect.Core\Aaron.MassEffect.Core.csproj" />
+  </ItemGroup>
+
+</Project>
