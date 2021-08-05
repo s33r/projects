@@ -1,4 +1,4 @@
-**/binaries
+**/.output
 **/node_modules
 **/.artifact
 **/obj

@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
+// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
 // 
 // This program is free software; you can redistribute it and/or modify it under the terms of the
 // GNU Lesser General Public License as published by the Free Software Foundation; either version
@@ -13,7 +13,6 @@
 // MA 02111-1307 USA
 
 using System;
-using Aaron.Automation.Cli.Commands;
 using Aaron.Core.CommandLine;
 using Aaron.Core.CommandLine.Syntax;
 
@@ -23,16 +22,21 @@ namespace Aaron.Automation.Cli
     {
         private static void Main(string[] args)
         {
+            CommandRunner runner = new CommandRunner("ls");
+            runner.Execute();
+
+
+            /*
             ArgumentParser parser = new ArgumentParser();
 
             parser.Commands.AddCommand(Clean.GetCommand());
             parser.Commands.AddCommand(NewProject.GetCommand());
             parser.Commands.AddCommand(Publish.GetCommand());
 
-
             string[] mockArgs = {"publish"};
 
             Run(mockArgs, parser);
+            */
         }
 
         private static void Run(string[] args, ArgumentParser parser)

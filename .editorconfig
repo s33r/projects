@@ -1,4 +1,26 @@
-﻿[*.cs]
+﻿root = true
+[*]
+end_of_line = lf
+insert_final_newline = false
+charset = utf-8
+indent_style = space
+indent_size = 4
+
+[*.cs]
+dotnet_analyzer_diagnostic.severity = warning
+
+
+# IDE0090: Use 'new(...)'
+csharp_style_implicit_object_creation_when_type_is_apparent = false
+
+# IDE0059: Unnecessary assignment of a value
+dotnet_diagnostic.IDE0059.severity = warning
 
 # Default severity for analyzer diagnostics with category 'Style'
-dotnet_analyzer_diagnostic.category-Style.severity = none
+dotnet_analyzer_diagnostic.category-Style.severity = warning
+
+# Default severity for analyzer diagnostics with category 'CodeQuality'
+dotnet_analyzer_diagnostic.category-CodeQuality.severity = warning
+
+# CA1028: Enum Storage should be Int32
+dotnet_diagnostic.CA1028.severity = none

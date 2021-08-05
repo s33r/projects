@@ -18,7 +18,7 @@ using Aaron.MassEffect.Coalesced;
 using Aaron.MassEffect.Coalesced.Records;
 using Aaron.MassEffect.Core;
 
-namespace MassEffectEditor
+namespace Aaron.MassEffect.CommandLine
 {
     internal class Program
     {

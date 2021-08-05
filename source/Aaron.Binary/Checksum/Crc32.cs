@@ -22,6 +22,7 @@ namespace Aaron.Binary.Checksum
 {
     public enum Crc32StandardPolynomials : uint
     {
+        Unknown = 0,
         Normal = 0x04C11DB7,
     }
 

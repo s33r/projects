@@ -6,9 +6,9 @@
   "type": "module",
   "main": "./automation/cli/index.js",
   "scripts": {
-    "cli": "node ./automation/cli/index.js",
-    "cs:lint": "dotnet jb inspectcode --output=./reports/results.txt --format=text \"source\\Aaron.sln\"",
-    "cs:clean": "dotnet jb cleanupcode --output=./reports/results.txt --format=text --profile=Main \"source\\Aaron.sln\""
+    "clean": "dotnet clean",
+    "build": "dotnet build -c Release --warnaserror",
+    "integrate": "npm run clean && npm run build"
   },
   "author": "Aaron Willows (aaron@aaronwillows.com)",
   "license": "LGPL-3.0-or-later",

@@ -74,7 +74,7 @@ namespace Aaron.Binary.Compression.Huffman
             }
 
             List<Node> nodes = frequencies.Select(
-                symbol => new Node {Symbol = symbol.Key, Frequency = symbol.Value}).ToList();
+                symbol => new Node { Symbol = symbol.Key, Frequency = symbol.Value }).ToList();
 
             while (nodes.Count > 1)
             {
@@ -92,8 +92,8 @@ namespace Aaron.Binary.Compression.Huffman
                         Symbol = '\0', Frequency = first.Frequency + second.Frequency, Left = first, Right = second,
                     };
 
-                    nodes.Remove(first);
-                    nodes.Remove(second);
+                    _ = nodes.Remove(first);
+                    _ = nodes.Remove(second);
                     nodes.Add(parent);
                 }
 

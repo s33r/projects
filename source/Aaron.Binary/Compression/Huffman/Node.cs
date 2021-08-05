@@ -40,9 +40,9 @@ namespace Aaron.Binary.Compression.Huffman
 {
     public class Node
     {
-        public int Frequency;
-        public Node Left;
-        public Node Right;
-        public char Symbol;
+        public int Frequency { get; set; }
+        public Node Left { get; set; }
+        public Node Right { get; set; }
+        public char Symbol { get; set; }
     }
 }

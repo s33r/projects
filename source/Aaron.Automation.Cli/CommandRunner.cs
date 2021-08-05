@@ -12,30 +12,34 @@
 // program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 // MA 02111-1307 USA
 
-using Aaron.Core.CommandLine.Syntax;
+using System;
+using System.Diagnostics;
 
-namespace Aaron.Automation.Cli.Commands
+namespace Aaron.Automation.Cli
 {
-    internal class Clean
+    internal class CommandRunner
     {
-        public static Command GetCommand()
-        {
-            Command result = new Command
-            {
-                Name = "clean",
-                ShortDescription = "Cleans temporary files.",
-                LongDescription = "Cleans temporary files.",
-                OnExecute = OnExecute,
-            };
+        public readonly string POWERSHELL = "powershell";
 
-            return result;
+        public string CommandLine { get; set; }
+
+        public CommandRunner(string commandLine)
+        {
+            CommandLine = commandLine;
         }
 
-        private static void OnExecute(ParsedCommandLine commandLine)
-        {
-            CommandRunner runner = new CommandRunner("dotnet clean");
 
-            runner.Execute();
+        public void Execute()
+        {
+            ProcessStartInfo startInfo = new ProcessStartInfo(POWERSHELL, CommandLine);
+
+
+            Process process = Process.Start(startInfo);
+
+            process.WaitForExit();
+            bool success = process.ExitCode == 0;
+
+            Console.WriteLine($"-- {(success ? "success" : "fail")} --");
         }
     }
 }
