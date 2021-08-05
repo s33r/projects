@@ -115,6 +115,9 @@ namespace Aaron.Binary.Compression.Huffman
         {
             if (text == null) { throw new ArgumentNullException(nameof(text)); }
 
+            if (bits == null) { throw new ArgumentNullException(nameof(bits)); }
+
+
             int bitCount = 0;
             foreach (char t in text)
             {

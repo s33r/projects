@@ -12,6 +12,7 @@
 // program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 // MA 02111-1307 USA
 
+using System;
 using Aaron.MassEffect.Coalesced.Records;
 using Aaron.MassEffect.Core;
 
@@ -49,6 +50,8 @@ namespace Aaron.MassEffect.Coalesced
         public Annotation(Games game, FileRecord fileRecord)
             : this(game)
         {
+            if (fileRecord == null) { throw new ArgumentNullException(nameof(fileRecord)); }
+
             Game = game;
             FileName = fileRecord.Name;
         }
@@ -59,6 +62,8 @@ namespace Aaron.MassEffect.Coalesced
         public Annotation(Games game, SectionRecord sectionRecord)
             : this(game)
         {
+            if (sectionRecord == null) { throw new ArgumentNullException(nameof(sectionRecord)); }
+
             FileName = sectionRecord.Parent.Name;
             SectionName = sectionRecord.Name;
         }
@@ -69,6 +74,8 @@ namespace Aaron.MassEffect.Coalesced
         public Annotation(Games game, EntryRecord entryRecord)
             : this(game)
         {
+            if (entryRecord == null) { throw new ArgumentNullException(nameof(entryRecord)); }
+
             Game = game;
             FileName = entryRecord.Parent.Parent.Name;
             SectionName = entryRecord.Parent.Name;

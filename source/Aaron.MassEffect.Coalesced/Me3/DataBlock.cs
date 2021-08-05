@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
+// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
 // 
 // This program is free software; you can redistribute it and/or modify it under the terms of the
 // GNU Lesser General Public License as published by the Free Software Foundation; either version
@@ -29,7 +29,7 @@ namespace Aaron.MassEffect.Coalesced.Me3
         {
             StringBuilder output = new StringBuilder();
 
-            output.AppendLine("Nothing here yet");
+            _ = output.AppendLine("Nothing here yet");
 
             return output.ToString();
         }
@@ -47,7 +47,7 @@ namespace Aaron.MassEffect.Coalesced.Me3
 
         public void Read(byte[] data, Codec codec)
         {
-            BinaryReader indexInput = new BinaryReader(new MemoryStream(data));
+            using BinaryReader indexInput = new BinaryReader(new MemoryStream(data));
 
             IndexContainer indexContainer = new IndexContainer();
             indexContainer.Read(indexInput);
@@ -67,7 +67,7 @@ namespace Aaron.MassEffect.Coalesced.Me3
             MemoryStream bufferStream = new MemoryStream();
             BinaryWriter buffer = new BinaryWriter(bufferStream);
 
-            BitArray compressedData = new(codec.HuffmanTree.Encoder.TotalBits);
+            BitArray compressedData = new BitArray(codec.HuffmanTree.Encoder.TotalBits);
 
             IndexContainer indexContainer = IndexContainer.FromRecords(Container, codec.StringTable,
                 codec.HuffmanTree.Encoder, compressedData);

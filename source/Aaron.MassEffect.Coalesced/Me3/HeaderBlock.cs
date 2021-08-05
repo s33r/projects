@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
+// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
 // 
 // This program is free software; you can redistribute it and/or modify it under the terms of the
 // GNU Lesser General Public License as published by the Free Software Foundation; either version
@@ -40,16 +40,16 @@ namespace Aaron.MassEffect.Coalesced.Me3
 
         public string Dump()
         {
-            StringBuilder output = new StringBuilder();
-
-            output.AppendLine($"          MagicWord = {MagicWord,16}");
-            output.AppendLine($"            Version = {Version,16}");
-            output.AppendLine($"       MaxKeyLength = {MaxKeyLength,16}");
-            output.AppendLine($"     MaxValueLength = {MaxValueLength,16}");
-            output.AppendLine($"  StringTableLength = {StringTableLength,16}");
-            output.AppendLine($"      HuffmanLength = {HuffmanLength,16}");
-            output.AppendLine($"        IndexLength = {IndexLength,16}");
-            output.AppendLine($"         DataLength = {DataLength,16}");
+            StringBuilder output =
+                new StringBuilder()
+                    .AppendLine($"          MagicWord = {MagicWord,16}")
+                    .AppendLine($"            Version = {Version,16}")
+                    .AppendLine($"       MaxKeyLength = {MaxKeyLength,16}")
+                    .AppendLine($"     MaxValueLength = {MaxValueLength,16}")
+                    .AppendLine($"  StringTableLength = {StringTableLength,16}")
+                    .AppendLine($"      HuffmanLength = {HuffmanLength,16}")
+                    .AppendLine($"        IndexLength = {IndexLength,16}")
+                    .AppendLine($"         DataLength = {DataLength,16}");
 
             return output.ToString();
         }
@@ -67,7 +67,7 @@ namespace Aaron.MassEffect.Coalesced.Me3
 
         public void Read(byte[] data, Codec codec)
         {
-            BinaryReader input = new BinaryReader(new MemoryStream(data));
+            using BinaryReader input = new BinaryReader(new MemoryStream(data));
 
             Read(input, codec);
         }

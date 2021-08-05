@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
+// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
 // 
 // This program is free software; you can redistribute it and/or modify it under the terms of the
 // GNU Lesser General Public License as published by the Free Software Foundation; either version
@@ -12,6 +12,7 @@
 // program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 // MA 02111-1307 USA
 
+using System;
 using System.Collections.Generic;
 
 namespace Aaron.Core.CommandLine.Syntax
@@ -28,12 +29,14 @@ namespace Aaron.Core.CommandLine.Syntax
 
         public Command(string name, IEnumerable<Parameter> supportedParameters)
         {
+            if (supportedParameters == null) { throw new ArgumentNullException(nameof(supportedParameters)); }
+
             Name = name;
 
             ShortDescription = string.Empty;
             LongDescription = string.Empty;
 
-            foreach (Parameter parameter in supportedParameters) { Parameters.AddParameter(parameter); }
+            foreach (Parameter parameter in supportedParameters) { _ = Parameters.AddParameter(parameter); }
         }
 
         public Command(string name)
@@ -51,7 +54,10 @@ namespace Aaron.Core.CommandLine.Syntax
             LongDescription = otherCommand.LongDescription;
             OnExecute = otherCommand.OnExecute;
 
-            foreach (Parameter parameter in otherCommand.Parameters.ToList()) { Parameters.AddParameter(parameter); }
+            foreach (Parameter parameter in otherCommand.Parameters.ToList())
+            {
+                _ = Parameters.AddParameter(parameter);
+            }
         }
 
         public override string ToString()

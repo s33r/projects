@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
+// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
 // 
 // This program is free software; you can redistribute it and/or modify it under the terms of the
 // GNU Lesser General Public License as published by the Free Software Foundation; either version
@@ -24,8 +24,6 @@ namespace Aaron.MassEffect.Coalesced.Me1
     {
         public const int DEFAULT_STRING = 0;
 
-        public Games Game => Games.Me1;
-
         public Codec(string name)
         {
             Name = name;
@@ -36,23 +34,23 @@ namespace Aaron.MassEffect.Coalesced.Me1
 
         public Container Decode(byte[] value)
         {
-            BinaryReader input = new BinaryReader(new MemoryStream(value));
             Container container = new Container();
+            using BinaryReader input = new BinaryReader(new MemoryStream(value));
 
             int fileCount = input.ReadInt32();
             for (int fileIndex = 0; fileIndex < fileCount; fileIndex++)
             {
-                FileRecord fileRecord = new FileRecord {Name = ReadString(input)};
+                FileRecord fileRecord = new FileRecord { Name = ReadString(input) };
 
                 int sectionCount = input.ReadInt32();
                 for (int sectionIndex = 0; sectionIndex < sectionCount; sectionIndex++)
                 {
-                    SectionRecord sectionRecord = new SectionRecord {Name = ReadString(input)};
+                    SectionRecord sectionRecord = new SectionRecord { Name = ReadString(input) };
 
                     int entryCount = input.ReadInt32();
                     for (int entryIndex = 0; entryIndex < entryCount; entryIndex++)
                     {
-                        EntryRecord entryRecord = new EntryRecord {Name = ReadString(input)};
+                        EntryRecord entryRecord = new EntryRecord { Name = ReadString(input) };
                         entryRecord.Add(ReadString(input));
 
                         sectionRecord.Add(entryRecord);
@@ -72,7 +70,7 @@ namespace Aaron.MassEffect.Coalesced.Me1
         public byte[] Encode(Container value)
         {
             MemoryStream memoryStream = new MemoryStream();
-            BinaryWriter output = new BinaryWriter(memoryStream);
+            using BinaryWriter output = new BinaryWriter(memoryStream);
 
             output.Write(value.Files.Count);
             foreach (FileRecord fileRecord in value.Files)
@@ -95,6 +93,8 @@ namespace Aaron.MassEffect.Coalesced.Me1
 
             return memoryStream.ToArray();
         }
+
+        public Games Game => Games.Me1;
 
         public string Name { get; }
 

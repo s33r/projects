@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
+// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
 // 
 // This program is free software; you can redistribute it and/or modify it under the terms of the
 // GNU Lesser General Public License as published by the Free Software Foundation; either version
@@ -38,7 +38,7 @@ namespace Aaron.MassEffect.Coalesced.Me3
 
             foreach (StringTableEntry entry in Entries)
             {
-                output.AppendLine($"[{entry.Offset,8}] ({entry.Checksum,10}) {entry.Value}");
+                _ = output.AppendLine($"[{entry.Offset,8}] ({entry.Checksum,10}) {entry.Value}");
             }
 
             return output.ToString();
@@ -57,7 +57,7 @@ namespace Aaron.MassEffect.Coalesced.Me3
 
         public void Read(byte[] data, Codec codec)
         {
-            BinaryReader input = new BinaryReader(new MemoryStream(data));
+            using BinaryReader input = new BinaryReader(new MemoryStream(data));
 
             uint stringTableLength = input.ReadUInt32();
 
@@ -72,7 +72,7 @@ namespace Aaron.MassEffect.Coalesced.Me3
 
             foreach (StringTableEntry entry in entries)
             {
-                input.BaseStream.Seek(seekOrigin + entry.Offset, SeekOrigin.Begin);
+                _ = input.BaseStream.Seek(seekOrigin + entry.Offset, SeekOrigin.Begin);
                 ushort textLength = input.ReadUInt16();
                 byte[] textBytes = input.ReadBytes(textLength);
 
@@ -114,7 +114,7 @@ namespace Aaron.MassEffect.Coalesced.Me3
             codec.Header.MaxKeyLength = stringTable.Max(s => s.Value.Length);
 
             MemoryStream bufferStream = new MemoryStream();
-            BinaryWriter buffer = new BinaryWriter(bufferStream);
+            using BinaryWriter buffer = new BinaryWriter(bufferStream);
 
             // First - Write out the [Content] section - needed so we can know the offsets.
             bufferStream.Position = HEADER_LENGTH + INDEX_ENTRY_LENGTH * stringTable.Count;

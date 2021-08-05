@@ -12,6 +12,7 @@
 // program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 // MA 02111-1307 USA
 
+using System;
 using System.Collections.Generic;
 using Aaron.Core.CommandLine.Syntax;
 using Aaron.Core.CommandLine.Tokens;
@@ -77,6 +78,8 @@ namespace Aaron.Core.CommandLine
 
         public ParsedCommandLine Run(ParsedCommandLine commandLine)
         {
+            if (commandLine == null) { throw new ArgumentNullException(nameof(commandLine)); }
+
             CommandAction runAction = _commands == null
                 ? DefaultAction
                 : commandLine.Command.OnExecute;

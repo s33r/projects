@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
+// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
 // 
 // This program is free software; you can redistribute it and/or modify it under the terms of the
 // GNU Lesser General Public License as published by the Free Software Foundation; either version
@@ -38,6 +38,7 @@
  *    distribution.
  */
 
+using System;
 using System.Collections;
 using System.Text;
 
@@ -47,6 +48,10 @@ namespace Aaron.Binary.Compression.Huffman
     {
         public static string Decode(Pair[] tree, BitArray data, int offset, int maxLength)
         {
+            if (data == null) { throw new ArgumentNullException(nameof(data)); }
+
+            if (tree == null) { throw new ArgumentNullException(nameof(tree)); }
+
             StringBuilder sb = new StringBuilder();
 
             int start = tree.Length - 1;
@@ -64,7 +69,8 @@ namespace Aaron.Binary.Compression.Huffman
                 ushort c = (ushort)(-1 - node);
                 if (c == 0) { break; }
 
-                sb.Append((char)c);
+                _ = sb.Append((char)c);
+
                 if (sb.Length >= maxLength) { break; }
             }
 

@@ -25,8 +25,6 @@ namespace Aaron.MassEffect.Coalesced.Me3
         public Container Container { get; set; }
         public DataBlock Data { get; } = new DataBlock();
 
-        public Games Game => Games.Me3;
-
         public HeaderBlock Header { get; } = new HeaderBlock();
         public HuffmanTreeBlock HuffmanTree { get; } = new HuffmanTreeBlock();
         public StringTableBlock StringTable { get; } = new StringTableBlock();
@@ -41,7 +39,7 @@ namespace Aaron.MassEffect.Coalesced.Me3
 
         public Container Decode(byte[] value)
         {
-            BinaryReader input = new BinaryReader(new MemoryStream(value));
+            using BinaryReader input = new BinaryReader(new MemoryStream(value));
 
             Header.Read(input, this);
             StringTable.Read(input.ReadBytes((int)Header.StringTableLength), this);
@@ -49,8 +47,7 @@ namespace Aaron.MassEffect.Coalesced.Me3
 
             byte[] indexData = input.ReadBytes((int)Header.IndexLength);
 
-            int compressedDataLength =
-                input.ReadInt32(); //TODO: This should really be in the DataBlock, its just easier to do it here because if the interface
+            _ = input.ReadInt32(); //compressedDataLength TODO: This should really be in the DataBlock, its just easier to do it here because if the interface
             CompressedData = new BitArray(input.ReadBytes((int)Header.DataLength));
 
             Data.Read(indexData, this);
@@ -73,7 +70,7 @@ namespace Aaron.MassEffect.Coalesced.Me3
             Container = value;
 
             MemoryStream outputStream = new MemoryStream();
-            BinaryWriter output = new BinaryWriter(outputStream);
+            using BinaryWriter output = new BinaryWriter(outputStream);
             outputStream.Position = HeaderBlock.HEADER_LENGTH;
 
             StringTable.Write(output, this);
@@ -86,6 +83,8 @@ namespace Aaron.MassEffect.Coalesced.Me3
             outputStream.Flush();
             return outputStream.ToArray();
         }
+
+        public Games Game => Games.Me3;
 
         public string Name { get; set; }
     }

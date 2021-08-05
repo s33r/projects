@@ -41,7 +41,7 @@ namespace Aaron.MassEffect.CommandLine
             }
 
 
-            string json = AnnotationCollection.Serialize(game, annotations);
+            string json = AnnotationSerializer.Serialize(game, annotations);
             File.WriteAllText(outputLocation, json);
         }
 
@@ -49,7 +49,7 @@ namespace Aaron.MassEffect.CommandLine
         {
             string json = File.ReadAllText(inputLocation);
 
-            return AnnotationCollection.Deserialze(json);
+            return AnnotationSerializer.Deserialize(json);
         }
 
 

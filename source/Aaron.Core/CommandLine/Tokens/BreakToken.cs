@@ -20,8 +20,9 @@ namespace Aaron.Core.CommandLine.Tokens
     {
         public BreakToken(string name)
         {
-            if (Match(name)) { Name = name; }
-            else { throw new Exception("Invalid BreakToken"); }
+            Name = Match(name)
+                ? name
+                : throw new InvalidTokenException(TokenTypes.Break, name);
         }
 
         public IToken Clean()
@@ -61,7 +62,10 @@ namespace Aaron.Core.CommandLine.Tokens
 
         public static bool Match(string name)
         {
-            return (name.StartsWith('-') || name.StartsWith("--")) && name.Length == 2;
+            if (name == null) { throw new ArgumentNullException(nameof(name)); }
+
+            return (name.StartsWith('-') || name.StartsWith("--", StringComparison.InvariantCulture))
+                   && name.Length == 2;
         }
 
         public override string ToString()

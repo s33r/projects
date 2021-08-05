@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
+// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
 // 
 // This program is free software; you can redistribute it and/or modify it under the terms of the
 // GNU Lesser General Public License as published by the Free Software Foundation; either version
@@ -27,7 +27,49 @@ namespace Aaron.MassEffect.Coalesced
     {
         public List<FileRecord> Files { get; }
 
-        public int RecordCount => GetEntries().Count();
+        public IEnumerable<EntryRecord> GetEntries
+        {
+            get
+            {
+                foreach (FileRecord fileRecord in Files)
+                {
+                    foreach (SectionRecord sectionRecord in fileRecord)
+                    {
+                        foreach (EntryRecord entryRecord in sectionRecord) { yield return entryRecord; }
+                    }
+                }
+            }
+        }
+
+        public IEnumerable<string> GetItems
+        {
+            get
+            {
+                foreach (FileRecord fileRecord in Files)
+                {
+                    foreach (SectionRecord sectionRecord in fileRecord)
+                    {
+                        foreach (EntryRecord entryRecord in sectionRecord)
+                        {
+                            foreach (string item in entryRecord) { yield return item; }
+                        }
+                    }
+                }
+            }
+        }
+
+        public IEnumerable<SectionRecord> GetSections
+        {
+            get
+            {
+                foreach (FileRecord fileRecord in Files)
+                {
+                    foreach (SectionRecord sectionRecord in fileRecord) { yield return sectionRecord; }
+                }
+            }
+        }
+
+        public int RecordCount => GetEntries.Count();
 
         public Container()
         {
@@ -70,20 +112,20 @@ namespace Aaron.MassEffect.Coalesced
 
             foreach (FileRecord fileRecord in Files)
             {
-                output.AppendLine($"{fileRecord.Name}");
+                _ = output.AppendLine($"{fileRecord.Name}");
 
                 foreach (SectionRecord sectionRecord in fileRecord)
                 {
-                    output.AppendLine($"    {sectionRecord.Name}");
+                    _ = output.AppendLine($"    {sectionRecord.Name}");
 
                     foreach (EntryRecord entryRecord in sectionRecord)
                     {
-                        output.AppendLine($"        {entryRecord.Name}");
+                        _ = output.AppendLine($"        {entryRecord.Name}");
 
                         int valueIndex = 0;
                         foreach (string value in entryRecord)
                         {
-                            output.AppendLine($"            [{valueIndex++}] {value}");
+                            _ = output.AppendLine($"            [{valueIndex++}] {value}");
                         }
                     }
                 }
@@ -103,9 +145,7 @@ namespace Aaron.MassEffect.Coalesced
 
         public string GetData()
         {
-            int longestLength;
-
-            return GetData(out longestLength);
+            return GetData(out _);
         }
 
         public string GetData(out int longestLength)
@@ -113,53 +153,15 @@ namespace Aaron.MassEffect.Coalesced
             int longest = 0;
             StringBuilder dataBuffer = new StringBuilder();
 
-            foreach (string item in GetItems())
+            foreach (string item in GetItems)
             {
-                dataBuffer.Append(item + '\0');
+                _ = dataBuffer.Append(item + '\0');
 
                 if (item.Length > longest) { longest = item.Length; }
             }
 
             longestLength = longest;
             return dataBuffer.ToString();
-        }
-
-        public IEnumerable<EntryRecord> GetEntries()
-        {
-            foreach (FileRecord fileRecord in Files)
-            {
-                foreach (SectionRecord sectionRecord in fileRecord)
-                {
-                    foreach (EntryRecord entryRecord in sectionRecord) { yield return entryRecord; }
-                }
-            }
-        }
-
-        public IEnumerable<FileRecord> GetFiles()
-        {
-            foreach (FileRecord fileRecord in Files) { yield return fileRecord; }
-        }
-
-        public IEnumerable<string> GetItems()
-        {
-            foreach (FileRecord fileRecord in Files)
-            {
-                foreach (SectionRecord sectionRecord in fileRecord)
-                {
-                    foreach (EntryRecord entryRecord in sectionRecord)
-                    {
-                        foreach (string item in entryRecord) { yield return item; }
-                    }
-                }
-            }
-        }
-
-        public IEnumerable<SectionRecord> GetSections()
-        {
-            foreach (FileRecord fileRecord in Files)
-            {
-                foreach (SectionRecord sectionRecord in fileRecord) { yield return sectionRecord; }
-            }
         }
 
 

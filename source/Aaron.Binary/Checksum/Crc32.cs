@@ -28,13 +28,8 @@ namespace Aaron.Binary.Checksum
 
     public static class Crc32
     {
-        private static readonly Dictionary<Crc32StandardPolynomials, uint[]> STANDARD_TABLES;
-
-        #region Constructor
-
-        static Crc32()
-        {
-            STANDARD_TABLES = new Dictionary<Crc32StandardPolynomials, uint[]>
+        private static readonly Dictionary<Crc32StandardPolynomials, uint[]> STANDARD_TABLES
+            = new Dictionary<Crc32StandardPolynomials, uint[]>
             {
                 {
                     Crc32StandardPolynomials.Normal,
@@ -80,9 +75,7 @@ namespace Aaron.Binary.Checksum
                     }
                 },
             };
-        }
 
-        #endregion
 
         public static uint Compute(Crc32StandardPolynomials polynomial,
                                    byte[] data,

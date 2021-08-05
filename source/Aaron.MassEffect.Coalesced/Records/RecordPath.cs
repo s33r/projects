@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
+// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
 // 
 // This program is free software; you can redistribute it and/or modify it under the terms of the
 // GNU Lesser General Public License as published by the Free Software Foundation; either version
@@ -32,7 +32,7 @@ namespace Aaron.MassEffect.Coalesced.Records
 
             if (elements.Length == 0) { return new RecordPath(); }
 
-            RecordPath result = new RecordPath() {EntryName = elements[0]};
+            RecordPath result = new RecordPath { EntryName = elements[0] };
 
             if (elements.Length > 1)
             {

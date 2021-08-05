@@ -19,9 +19,9 @@ using Newtonsoft.Json;
 
 namespace Aaron.MassEffect.Coalesced
 {
-    public static class AnnotationCollection
+    public static class AnnotationSerializer
     {
-        public static List<Annotation> Deserialze(string json)
+        public static List<Annotation> Deserialize(string json)
         {
             AnnotationJson jsonObject = JsonConvert.DeserializeObject<AnnotationJson>(json);
 
@@ -31,15 +31,16 @@ namespace Aaron.MassEffect.Coalesced
         }
 
 
-        public static string Serialize(Games game, List<Annotation> annotations)
+        public static string Serialize(Games game, IEnumerable<Annotation> annotations)
         {
             AnnotationJson jsonObject = new AnnotationJson
             {
-                Game = game, Annotations = annotations.Select(a => a.GetWireVersion()).ToList(),
+                Game = game,
+                Annotations = annotations.Select(a => a.GetWireVersion()).ToList(),
             };
 
             JsonSerializerSettings settings =
-                new JsonSerializerSettings() {NullValueHandling = NullValueHandling.Ignore};
+                new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore };
 
             return JsonConvert.SerializeObject(jsonObject, settings);
         }

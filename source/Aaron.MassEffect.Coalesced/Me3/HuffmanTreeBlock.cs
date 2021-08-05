@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
+// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
 // 
 // This program is free software; you can redistribute it and/or modify it under the terms of the
 // GNU Lesser General Public License as published by the Free Software Foundation; either version
@@ -31,11 +31,10 @@ namespace Aaron.MassEffect.Coalesced.Me3
 
         public string Dump()
         {
-            StringBuilder output = new StringBuilder();
+            StringBuilder output = new StringBuilder()
+                .AppendLine($"Count = {HuffmanTuples.Count}");
 
-            output.AppendLine($"Count = {HuffmanTuples.Count}");
-
-            foreach (Pair tuple in HuffmanTuples) { output.AppendLine($"({tuple.Left,8}, {tuple.Right,8})"); }
+            foreach (Pair tuple in HuffmanTuples) { _ = output.AppendLine($"({tuple.Left,8}, {tuple.Right,8})"); }
 
             return output.ToString();
         }
@@ -53,7 +52,7 @@ namespace Aaron.MassEffect.Coalesced.Me3
 
         public void Read(byte[] data, Codec codec)
         {
-            BinaryReader input = new BinaryReader(new MemoryStream(data));
+            using BinaryReader input = new BinaryReader(new MemoryStream(data));
 
             ushort entryCount = input.ReadUInt16();
 
@@ -61,7 +60,11 @@ namespace Aaron.MassEffect.Coalesced.Me3
 
             for (int currentEntry = 0; currentEntry < entryCount; currentEntry++)
             {
-                Pair pair = new Pair {Left = input.ReadInt32(), Right = input.ReadInt32()};
+                Pair pair = new Pair
+                {
+                    Left = input.ReadInt32(),
+                    Right = input.ReadInt32(),
+                };
 
                 pairs.Add(pair);
             }

@@ -15,8 +15,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Aaron.MassEffect.Coalesced.Me3;
-using Aaron.MassEffect.Coalesced.Me3.DataStructures;
+using Aaron.MassEffect.Coalesced.Me1;
 using Aaron.MassEffect.Core;
 using Aaron.MassEffect.Core.Exceptions;
 
@@ -28,9 +27,9 @@ namespace Aaron.MassEffect.Coalesced
 
         static CoalescedFile()
         {
-            _codecs.Add(Games.Me1, name => new Me1.Codec(name));
-            _codecs.Add(Games.Me2, name => new Me1.Codec(name)); // Mass Effect 2 uses the same format as ME1
-            _codecs.Add(Games.Me3, name => new Codec(name));
+            _codecs.Add(Games.Me1, name => new Codec(name));
+            _codecs.Add(Games.Me2, name => new Codec(name)); // Mass Effect 2 uses the same format as ME1
+            _codecs.Add(Games.Me3, name => new Me3.Codec(name));
         }
 
         public static void Compare(Games game, byte[] oldData, byte[] newData)
@@ -98,34 +97,6 @@ namespace Aaron.MassEffect.Coalesced
             byte[] data = Save(game, container, name);
 
             File.WriteAllBytes(outputLocation, data);
-        }
-
-        private static bool CompareBytes(byte[] oldData, byte[] newData)
-        {
-            if (oldData.Length != newData.Length) { return false; }
-
-            for (int index = 0; index < oldData.Length; index++)
-            {
-                byte originalByte = oldData[index];
-                byte newByte = newData[index];
-
-                if (originalByte != newByte)
-                {
-                    Console.WriteLine("[{0}] {1:X2} | {2:X2}", index, originalByte, newByte);
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-
-        private static void DumpStringTable(Codec codec, StreamWriter output)
-        {
-            foreach (StringTableEntry entry in codec.StringTable.Entries)
-            {
-                output.WriteLine("[{0,8}] ({1,10}) {2}", entry.Offset, entry.Checksum, entry.Value);
-            }
         }
 
         private delegate ICodec CodecFactory(string name);
