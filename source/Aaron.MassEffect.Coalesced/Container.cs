@@ -1,4 +1,4 @@
-// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
+﻿// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
 // 
 // This program is free software; you can redistribute it and/or modify it under the terms of the
 // GNU Lesser General Public License as published by the Free Software Foundation; either version
@@ -23,19 +23,19 @@ using Aaron.MassEffect.Core;
 
 namespace Aaron.MassEffect.Coalesced
 {
-    public class Container : IEnumerable<IRecord>
+    public class Container : IEnumerable<IRecordCollection>
     {
-        public List<FileRecord> Files { get; }
+        public List<FileRecordCollection> Files { get; }
 
-        public IEnumerable<EntryRecord> GetEntries
+        public IEnumerable<EntryRecordCollection> GetEntries
         {
             get
             {
-                foreach (FileRecord fileRecord in Files)
+                foreach (FileRecordCollection fileRecord in Files)
                 {
-                    foreach (SectionRecord sectionRecord in fileRecord)
+                    foreach (SectionRecordCollection sectionRecord in fileRecord)
                     {
-                        foreach (EntryRecord entryRecord in sectionRecord) { yield return entryRecord; }
+                        foreach (EntryRecordCollection entryRecord in sectionRecord) { yield return entryRecord; }
                     }
                 }
             }
@@ -45,11 +45,11 @@ namespace Aaron.MassEffect.Coalesced
         {
             get
             {
-                foreach (FileRecord fileRecord in Files)
+                foreach (FileRecordCollection fileRecord in Files)
                 {
-                    foreach (SectionRecord sectionRecord in fileRecord)
+                    foreach (SectionRecordCollection sectionRecord in fileRecord)
                     {
-                        foreach (EntryRecord entryRecord in sectionRecord)
+                        foreach (EntryRecordCollection entryRecord in sectionRecord)
                         {
                             foreach (string item in entryRecord) { yield return item; }
                         }
@@ -58,13 +58,13 @@ namespace Aaron.MassEffect.Coalesced
             }
         }
 
-        public IEnumerable<SectionRecord> GetSections
+        public IEnumerable<SectionRecordCollection> GetSections
         {
             get
             {
-                foreach (FileRecord fileRecord in Files)
+                foreach (FileRecordCollection fileRecord in Files)
                 {
-                    foreach (SectionRecord sectionRecord in fileRecord) { yield return sectionRecord; }
+                    foreach (SectionRecordCollection sectionRecord in fileRecord) { yield return sectionRecord; }
                 }
             }
         }
@@ -73,17 +73,17 @@ namespace Aaron.MassEffect.Coalesced
 
         public Container()
         {
-            Files = new List<FileRecord>();
+            Files = new List<FileRecordCollection>();
         }
 
         public Container(int count)
         {
-            Files = Utility.CreateList<FileRecord>(count).ToList();
+            Files = Utility.CreateList<FileRecordCollection>(count).ToList();
         }
 
-        public Container(IEnumerable<FileRecord> records)
+        public Container(IEnumerable<FileRecordCollection> records)
         {
-            Files = new List<FileRecord>(records);
+            Files = new List<FileRecordCollection>(records);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -91,17 +91,17 @@ namespace Aaron.MassEffect.Coalesced
             return GetEnumerator();
         }
 
-        public IEnumerator<IRecord> GetEnumerator()
+        public IEnumerator<IRecordCollection> GetEnumerator()
         {
-            foreach (FileRecord fileRecord in Files)
+            foreach (FileRecordCollection fileRecord in Files)
             {
                 yield return fileRecord;
 
-                foreach (SectionRecord sectionRecord in fileRecord)
+                foreach (SectionRecordCollection sectionRecord in fileRecord)
                 {
                     yield return sectionRecord;
 
-                    foreach (EntryRecord entryRecord in sectionRecord) { yield return entryRecord; }
+                    foreach (EntryRecordCollection entryRecord in sectionRecord) { yield return entryRecord; }
                 }
             }
         }
@@ -110,15 +110,15 @@ namespace Aaron.MassEffect.Coalesced
         {
             StringBuilder output = new StringBuilder();
 
-            foreach (FileRecord fileRecord in Files)
+            foreach (FileRecordCollection fileRecord in Files)
             {
                 _ = output.AppendLine($"{fileRecord.Name}");
 
-                foreach (SectionRecord sectionRecord in fileRecord)
+                foreach (SectionRecordCollection sectionRecord in fileRecord)
                 {
                     _ = output.AppendLine($"    {sectionRecord.Name}");
 
-                    foreach (EntryRecord entryRecord in sectionRecord)
+                    foreach (EntryRecordCollection entryRecord in sectionRecord)
                     {
                         _ = output.AppendLine($"        {entryRecord.Name}");
 
@@ -136,7 +136,7 @@ namespace Aaron.MassEffect.Coalesced
 
         public void DumpRecords(string fileName)
         {
-            string outputLocation = Path.Join(Configuration.Instance.WorkingLocation, fileName);
+            string outputLocation = Path.Join(MassEffectConfiguration.Instance.WorkingLocation, fileName);
 
             string result = DumpRecords();
 
@@ -165,15 +165,15 @@ namespace Aaron.MassEffect.Coalesced
         }
 
 
-        public void Sort(Comparison<IRecord> comparison)
+        public void Sort(Comparison<IRecordCollection> comparison)
         {
             Files.Sort(comparison);
 
-            foreach (FileRecord fileRecord in Files)
+            foreach (FileRecordCollection fileRecord in Files)
             {
                 fileRecord.Sort(comparison);
 
-                foreach (SectionRecord sectionRecord in fileRecord) { sectionRecord.Sort(comparison); }
+                foreach (SectionRecordCollection sectionRecord in fileRecord) { sectionRecord.Sort(comparison); }
             }
         }
     }

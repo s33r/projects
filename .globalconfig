@@ -1,0 +1,8 @@
+is_global = true
+
+# note this file only exists because of
+# https://github.com/dotnet/roslyn-analyzers/issues/4400 (closed, but not fixed)
+# Probably this will be fixed in 6.0 so revisit then
+
+# https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca1014
+dotnet_diagnostic.CA1014.severity = suggestion

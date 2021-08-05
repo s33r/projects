@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
+// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
 // 
 // This program is free software; you can redistribute it and/or modify it under the terms of the
 // GNU Lesser General Public License as published by the Free Software Foundation; either version
@@ -23,14 +23,16 @@ namespace Aaron.Core.CommandLine.Syntax
         public string DefaultValue { get; set; }
         public string LongDescription { get; set; }
         public string Name { get; set; }
-        public List<string> OptionDescription { get; set; }
-        public List<string> Options { get; set; }
+        public List<string> OptionDescription { get; }
+        public List<string> Options { get; }
         public bool Required { get; set; }
         public string ShortDescription { get; set; }
         public string Value { get; set; }
 
         public Parameter(Parameter other)
         {
+            if (other == null) { throw new ArgumentNullException(nameof(other)); }
+
             Name = other.Name;
             Alias = other.Alias;
             Value = other.Value;
@@ -44,6 +46,8 @@ namespace Aaron.Core.CommandLine.Syntax
 
         public Parameter(string name, string alias, IEnumerable<string> options, bool required, string defaultValue)
         {
+            if (options == null) { throw new ArgumentNullException(nameof(options)); }
+
             Name = name;
             Alias = alias;
             Required = required;
@@ -67,7 +71,7 @@ namespace Aaron.Core.CommandLine.Syntax
             : this(name, alias, options, required, string.Empty) { }
 
         public Parameter(string name, IEnumerable<string> options, bool required, string defaultValue)
-            : this(name, string.Empty, options, false, defaultValue) { }
+            : this(name, string.Empty, options, required, defaultValue) { }
 
         public Parameter(string name, bool required, string defaultValue)
             : this(name, string.Empty, Array.Empty<string>(), required, defaultValue) { }
@@ -79,7 +83,7 @@ namespace Aaron.Core.CommandLine.Syntax
             : this(name, string.Empty, options, false, string.Empty) { }
 
         public Parameter(string name, IEnumerable<string> options, bool required)
-            : this(name, string.Empty, options, false, string.Empty) { }
+            : this(name, string.Empty, options, required, string.Empty) { }
 
         public Parameter(string name, bool required)
             : this(name, string.Empty, Array.Empty<string>(), required, string.Empty) { }

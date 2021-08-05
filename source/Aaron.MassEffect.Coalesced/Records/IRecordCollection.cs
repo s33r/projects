@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
+// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
 // 
 // This program is free software; you can redistribute it and/or modify it under the terms of the
 // GNU Lesser General Public License as published by the Free Software Foundation; either version
@@ -16,10 +16,10 @@ using System.Collections;
 
 namespace Aaron.MassEffect.Coalesced.Records
 {
-    public interface IRecord : IEnumerable
+    public interface IRecordCollection : IEnumerable
     {
         string Name { get; set; }
-        IRecord Parent { get; }
+        IRecordCollection Parent { get; }
         string Path { get; }
     }
 }

@@ -1,4 +1,4 @@
-// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
+﻿// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
 // 
 // This program is free software; you can redistribute it and/or modify it under the terms of the
 // GNU Lesser General Public License as published by the Free Software Foundation; either version
@@ -57,7 +57,7 @@ namespace Aaron.MassEffect.Coalesced.Me3
         public void Dump(string rootName)
         {
             string fileName = $"{rootName}.header.txt";
-            string outputLocation = Path.Join(Configuration.Instance.WorkingLocation, fileName);
+            string outputLocation = Path.Join(MassEffectConfiguration.Instance.WorkingLocation, fileName);
 
             string text = Dump();
             text = rootName + "\n" + text;

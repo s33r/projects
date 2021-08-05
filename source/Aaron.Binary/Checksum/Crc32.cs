@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
+// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
 // 
 // This program is free software; you can redistribute it and/or modify it under the terms of the
 // GNU Lesser General Public License as published by the Free Software Foundation; either version
@@ -16,6 +16,7 @@
 //            http://ross.net/crc/download/crc_v3.txt
 // TODO: Add support for custom or other common polys
 
+using System;
 using System.Collections.Generic;
 
 namespace Aaron.Binary.Checksum
@@ -83,6 +84,8 @@ namespace Aaron.Binary.Checksum
                                    int length,
                                    uint sum)
         {
+            if (data == null) { throw new ArgumentNullException(nameof(data)); }
+
             uint[] table = STANDARD_TABLES[polynomial];
             uint newSum = ~sum;
 
@@ -93,6 +96,8 @@ namespace Aaron.Binary.Checksum
 
         public static uint Compute(Crc32StandardPolynomials polynomial, string data, uint sum)
         {
+            if (data == null) { throw new ArgumentNullException(nameof(data)); }
+
             uint[] table = STANDARD_TABLES[polynomial];
             uint newSum = ~sum;
 
@@ -108,6 +113,8 @@ namespace Aaron.Binary.Checksum
 
         public static uint Compute(Crc32StandardPolynomials polynomial, byte[] data, int offset)
         {
+            if (data == null) { throw new ArgumentNullException(nameof(data)); }
+
             return Compute(polynomial, data, offset, data.Length - offset, 0);
         }
 
@@ -123,6 +130,8 @@ namespace Aaron.Binary.Checksum
 
         public static uint Compute(byte[] data, int offset)
         {
+            if (data == null) { throw new ArgumentNullException(nameof(data)); }
+
             return Compute(Crc32StandardPolynomials.Normal, data, offset, data.Length - offset, 0);
         }
 

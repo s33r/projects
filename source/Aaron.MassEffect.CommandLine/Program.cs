@@ -26,14 +26,14 @@ namespace Aaron.MassEffect.CommandLine
         {
             List<Annotation> annotations = new List<Annotation>();
 
-            foreach (FileRecord fileRecord in container.Files)
+            foreach (FileRecordCollection fileRecord in container.Files)
             {
                 annotations.Add(new Annotation(game, fileRecord));
 
-                foreach (SectionRecord sectionRecord in fileRecord)
+                foreach (SectionRecordCollection sectionRecord in fileRecord)
                 {
                     annotations.Add(new Annotation(game, sectionRecord));
-                    foreach (EntryRecord entryRecord in sectionRecord)
+                    foreach (EntryRecordCollection entryRecord in sectionRecord)
                     {
                         annotations.Add(new Annotation(game, entryRecord));
                     }
@@ -53,30 +53,34 @@ namespace Aaron.MassEffect.CommandLine
         }
 
 
-        private static void Main(string[] args)
+        private static void Main()
         {
-            Configuration.Instance.Initialize();
+            MassEffectConfiguration.Instance.Initialize();
 
-            string m1Location = Path.Join(Configuration.Instance.WorkingLocation, "me1.annotations.json");
-            string m2Location = Path.Join(Configuration.Instance.WorkingLocation, "me2.annotations.json");
-            string m3Location = Path.Join(Configuration.Instance.WorkingLocation, "me3.annotations.json");
+            string m1Location = Path.Join(MassEffectConfiguration.Instance.WorkingLocation, "me1.annotations.json");
+            string m2Location = Path.Join(MassEffectConfiguration.Instance.WorkingLocation, "me2.annotations.json");
+            string m3Location = Path.Join(MassEffectConfiguration.Instance.WorkingLocation, "me3.annotations.json");
 
 
             Container me1 = CoalescedFile.Load(Games.Me1,
-                Configuration.Instance.Game[Games.Me1].CoalescedConfigurationLocation);
+                MassEffectConfiguration.Instance.Game[Games.Me1].CoalescedConfigurationLocation);
             Container me2 = CoalescedFile.Load(Games.Me2,
-                Configuration.Instance.Game[Games.Me2].CoalescedConfigurationLocation);
+                MassEffectConfiguration.Instance.Game[Games.Me2].CoalescedConfigurationLocation);
             Container me3 = CoalescedFile.Load(Games.Me3,
-                Configuration.Instance.Game[Games.Me3].CoalescedConfigurationLocation);
+                MassEffectConfiguration.Instance.Game[Games.Me3].CoalescedConfigurationLocation);
 
             BuildAnnotations(Games.Me1, me1, m1Location);
             BuildAnnotations(Games.Me2, me2, m2Location);
             BuildAnnotations(Games.Me3, me3, m3Location);
 
 
-            List<Annotation> me1a = LoadAnnotations(m1Location);
-            List<Annotation> me2a = LoadAnnotations(m2Location);
-            List<Annotation> me3a = LoadAnnotations(m3Location);
+#pragma warning disable IDE0059 // Unnecessary assignment of a value
+            List<Annotation> me1A = LoadAnnotations(m1Location);
+
+            List<Annotation> me2A = LoadAnnotations(m2Location);
+            List<Annotation> me3A = LoadAnnotations(m3Location);
+
+#pragma warning restore IDE0059 // Unnecessary assignment of a value
         }
     }
 }

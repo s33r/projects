@@ -12,29 +12,8 @@
 // program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 // MA 02111-1307 USA
 
-using System;
-using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
-namespace Aaron.MassEffect.Core
-{
-    public static class Utility
-    {
-        public static IEnumerable<T> CreateList<T>(int count)
-            where T : new()
-        {
-            List<T> result = new List<T>(count);
-
-            PopulateList(count, result);
-
-            return result;
-        }
-
-        public static void PopulateList<T>(int count, List<T> list)
-            where T : new()
-        {
-            if (list == null) { throw new ArgumentNullException(nameof(list)); }
-
-            for (int j = 0; j < count; j++) { list.Add(new T()); }
-        }
-    }
-}
+[assembly:
+    SuppressMessage("Style", "IDE0032:Use auto property", Justification = "<Pending>", Scope = "member",
+        Target = "~F:Aaron.MassEffect.Core.MassEffectConfiguration.Instance")]

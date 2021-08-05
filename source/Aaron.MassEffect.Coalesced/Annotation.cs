@@ -47,43 +47,43 @@ namespace Aaron.MassEffect.Coalesced
         public Annotation()
             : this(Games.Unknown) { }
 
-        public Annotation(Games game, FileRecord fileRecord)
+        public Annotation(Games game, FileRecordCollection fileRecordCollection)
             : this(game)
         {
-            if (fileRecord == null) { throw new ArgumentNullException(nameof(fileRecord)); }
+            if (fileRecordCollection == null) { throw new ArgumentNullException(nameof(fileRecordCollection)); }
 
             Game = game;
-            FileName = fileRecord.Name;
+            FileName = fileRecordCollection.Name;
         }
 
-        public Annotation(FileRecord fileRecord)
-            : this(Games.Unknown, fileRecord) { }
+        public Annotation(FileRecordCollection fileRecordCollection)
+            : this(Games.Unknown, fileRecordCollection) { }
 
-        public Annotation(Games game, SectionRecord sectionRecord)
+        public Annotation(Games game, SectionRecordCollection sectionRecordCollection)
             : this(game)
         {
-            if (sectionRecord == null) { throw new ArgumentNullException(nameof(sectionRecord)); }
+            if (sectionRecordCollection == null) { throw new ArgumentNullException(nameof(sectionRecordCollection)); }
 
-            FileName = sectionRecord.Parent.Name;
-            SectionName = sectionRecord.Name;
+            FileName = sectionRecordCollection.Parent.Name;
+            SectionName = sectionRecordCollection.Name;
         }
 
-        public Annotation(SectionRecord sectionRecord)
-            : this(Games.Unknown, sectionRecord) { }
+        public Annotation(SectionRecordCollection sectionRecordCollection)
+            : this(Games.Unknown, sectionRecordCollection) { }
 
-        public Annotation(Games game, EntryRecord entryRecord)
+        public Annotation(Games game, EntryRecordCollection entryRecordCollection)
             : this(game)
         {
-            if (entryRecord == null) { throw new ArgumentNullException(nameof(entryRecord)); }
+            if (entryRecordCollection == null) { throw new ArgumentNullException(nameof(entryRecordCollection)); }
 
             Game = game;
-            FileName = entryRecord.Parent.Parent.Name;
-            SectionName = entryRecord.Parent.Name;
-            EntryName = entryRecord.Name;
+            FileName = entryRecordCollection.Parent.Parent.Name;
+            SectionName = entryRecordCollection.Parent.Name;
+            EntryName = entryRecordCollection.Name;
         }
 
-        public Annotation(EntryRecord entryRecord)
-            : this(Games.Unknown, entryRecord) { }
+        public Annotation(EntryRecordCollection entryRecordCollection)
+            : this(Games.Unknown, entryRecordCollection) { }
 
 
         public Annotation GetWireVersion()

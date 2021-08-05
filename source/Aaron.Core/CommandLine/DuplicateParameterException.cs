@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
+// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
 // 
 // This program is free software; you can redistribute it and/or modify it under the terms of the
 // GNU Lesser General Public License as published by the Free Software Foundation; either version
@@ -23,5 +23,10 @@ namespace Aaron.Core.CommandLine
 
         public DuplicateParameterException(string parameterName, string commandName)
             : base($"The parameter {parameterName} already exists for command {commandName}!") { }
+
+        public DuplicateParameterException() { }
+
+        public DuplicateParameterException(string parameterName, Exception innerException)
+            : base($"The parameter {parameterName} already exists!", innerException) { }
     }
 }

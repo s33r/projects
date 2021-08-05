@@ -76,7 +76,7 @@ namespace Aaron.MassEffect.Coalesced.Me3.DataStructures
         public void Dump(string rootName)
         {
             string fileName = $"{rootName}.index.txt";
-            string outputLocation = Path.Join(Configuration.Instance.WorkingLocation, fileName);
+            string outputLocation = Path.Join(MassEffectConfiguration.Instance.WorkingLocation, fileName);
 
             string text = Dump();
             text = rootName + "\n" + text;
@@ -96,42 +96,43 @@ namespace Aaron.MassEffect.Coalesced.Me3.DataStructures
 
             for (int sectionIndex = 0; sectionIndex < indexContainer.Sections.Length; sectionIndex++)
             {
-                FileRecord currentFileRecord = container.Files[sectionIndex];
+                FileRecordCollection currentFileRecordCollection = container.Files[sectionIndex];
                 Section currentSection =
-                    new Section((ushort)currentFileRecord.Count, indexContainer.Index.Table[sectionIndex]);
+                    new Section((ushort)currentFileRecordCollection.Count, indexContainer.Index.Table[sectionIndex]);
                 indexContainer.Sections[sectionIndex] = currentSection;
 
                 currentSection.Parent.Offset = fileOffset;
-                currentSection.Parent.StringTableIndex = stringTable.IndexOf(currentFileRecord.Name);
+                currentSection.Parent.StringTableIndex = stringTable.IndexOf(currentFileRecordCollection.Name);
 
                 uint sectionOffset = currentSection.Size();
 
                 for (int entryIndex = 0; entryIndex < currentSection.Entries.Length; entryIndex++)
                 {
-                    SectionRecord currentSectionRecord = container.Files[sectionIndex][entryIndex];
+                    SectionRecordCollection currentSectionRecordCollection = container.Files[sectionIndex][entryIndex];
                     Entry currentEntry =
-                        new Entry((ushort)currentSectionRecord.Count, currentSection.Index.Table[entryIndex]);
+                        new Entry((ushort)currentSectionRecordCollection.Count, currentSection.Index.Table[entryIndex]);
                     currentSection.Entries[entryIndex] = currentEntry;
 
                     currentEntry.Parent.Offset = sectionOffset;
-                    currentEntry.Parent.StringTableIndex = stringTable.IndexOf(currentSectionRecord.Name);
+                    currentEntry.Parent.StringTableIndex = stringTable.IndexOf(currentSectionRecordCollection.Name);
 
                     ushort entryOffset = currentEntry.Size();
 
                     for (int itemIndex = 0; itemIndex < currentEntry.Items.Length; itemIndex++)
                     {
-                        EntryRecord currentEntryRecord = container.Files[sectionIndex][entryIndex][itemIndex];
+                        EntryRecordCollection currentEntryRecordCollection =
+                            container.Files[sectionIndex][entryIndex][itemIndex];
                         Item currentItem =
-                            new Item((ushort)currentSectionRecord[itemIndex].Count,
+                            new Item((ushort)currentSectionRecordCollection[itemIndex].Count,
                                 currentEntry.Index.Table[itemIndex]);
                         currentEntry.Items[itemIndex] = currentItem;
 
                         currentItem.Parent.Offset = entryOffset;
-                        currentItem.Parent.StringTableIndex = stringTable.IndexOf(currentEntryRecord.Name);
+                        currentItem.Parent.StringTableIndex = stringTable.IndexOf(currentEntryRecordCollection.Name);
 
                         for (int valueIndex = 0; valueIndex < currentItem.Count; valueIndex++)
                         {
-                            string currentValue = currentEntryRecord[valueIndex];
+                            string currentValue = currentEntryRecordCollection[valueIndex];
                             bitOffset = currentItem.Encode(currentValue, valueIndex, bitOffset, encoder,
                                 compressedData);
                         }
@@ -178,9 +179,10 @@ namespace Aaron.MassEffect.Coalesced.Me3.DataStructures
         public Container ToRecords(StringTableBlock stringTable, HuffmanTreeBlock huffmanTree, BitArray compressedData,
                                    int maxValueLength)
         {
-            List<FileRecord> fileRecords = Index.Table
-                                                .Select(f => new FileRecord(f.GetString(stringTable)))
-                                                .ToList();
+            List<FileRecordCollection> fileRecords = Index.Table
+                                                          .Select(f =>
+                                                              new FileRecordCollection(f.GetString(stringTable)))
+                                                          .ToList();
 
             for (int sectionIndex = 0; sectionIndex < Sections.Length; sectionIndex++)
             {
@@ -188,7 +190,7 @@ namespace Aaron.MassEffect.Coalesced.Me3.DataStructures
 
                 fileRecords[sectionIndex]
                     .SetValues(currentSection.Index.Table
-                                             .Select(s => new SectionRecord(s.GetString(stringTable)))
+                                             .Select(s => new SectionRecordCollection(s.GetString(stringTable)))
                                              .ToList());
 
                 for (int entryIndex = 0; entryIndex < currentSection.Entries.Length; entryIndex++)
@@ -197,7 +199,7 @@ namespace Aaron.MassEffect.Coalesced.Me3.DataStructures
 
                     fileRecords[sectionIndex][entryIndex]
                         .SetValues(currentEntry.Index.Table
-                                               .Select(e => new EntryRecord(e.GetString(stringTable)))
+                                               .Select(e => new EntryRecordCollection(e.GetString(stringTable)))
                                                .ToList());
 
                     for (int itemIndex = 0; itemIndex < currentEntry.Items.Length; itemIndex++)
@@ -242,7 +244,7 @@ namespace Aaron.MassEffect.Coalesced.Me3.DataStructures
             foreach (Section sectionIndex in Sections) { sectionIndex.Write(writer); }
         }
 
-        private static int SortByIndexComparer(IRecord x, IRecord y, StringTableBlock stringTable)
+        private static int SortByIndexComparer(IRecordCollection x, IRecordCollection y, StringTableBlock stringTable)
         {
             return stringTable.IndexOf(x.Name).CompareTo(stringTable.IndexOf(y.Name));
         }

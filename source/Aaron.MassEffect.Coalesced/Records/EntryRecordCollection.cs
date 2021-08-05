@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
+// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
 // 
 // This program is free software; you can redistribute it and/or modify it under the terms of the
 // GNU Lesser General Public License as published by the Free Software Foundation; either version
@@ -18,24 +18,24 @@ using System.Collections.Generic;
 
 namespace Aaron.MassEffect.Coalesced.Records
 {
-    public class EntryRecord
-        : IRecord, IEquatable<IRecord>, IEnumerable<string>, IList<string>
+    public class EntryRecordCollection
+        : IRecordCollection, IEquatable<IRecordCollection>, IList<string>
     {
         private List<string> _values;
 
-        public EntryRecord(List<string> items, string name)
+        public EntryRecordCollection(List<string> items, string name)
         {
             Name = name;
             _values = new List<string>(items);
         }
 
-        public EntryRecord(List<string> items)
+        public EntryRecordCollection(List<string> items)
             : this(items, null) { }
 
-        public EntryRecord()
+        public EntryRecordCollection()
             : this(new List<string>()) { }
 
-        public EntryRecord(string name)
+        public EntryRecordCollection(string name)
             : this(new List<string>(), name) { }
 
         public void Add(string item)
@@ -60,7 +60,7 @@ namespace Aaron.MassEffect.Coalesced.Records
 
         public int Count => _values.Count;
 
-        public bool Equals(IRecord other)
+        public bool Equals(IRecordCollection other)
         {
             if (other == null) { return false; }
 
@@ -72,7 +72,7 @@ namespace Aaron.MassEffect.Coalesced.Records
             return _values.GetEnumerator();
         }
 
-        IEnumerator<string> IEnumerable<string>.GetEnumerator()
+        public IEnumerator<string> GetEnumerator()
         {
             return _values.GetEnumerator();
         }
@@ -97,7 +97,7 @@ namespace Aaron.MassEffect.Coalesced.Records
 
         public string Name { get; set; }
 
-        public IRecord Parent { get; internal set; }
+        public IRecordCollection Parent { get; internal set; }
 
         public string Path => Parent.Parent.Name + '/' + Parent.Name + '/' + Name;
 
@@ -111,11 +111,11 @@ namespace Aaron.MassEffect.Coalesced.Records
             _values.RemoveAt(index);
         }
 
-        public override bool Equals(object other)
+        public override bool Equals(object obj)
         {
-            if (other == null || GetType() != other.GetType()) { return false; }
+            if (obj == null || GetType() != obj.GetType()) { return false; }
 
-            return Equals((IRecord)other);
+            return Equals((IRecordCollection)obj);
         }
 
         public override int GetHashCode()

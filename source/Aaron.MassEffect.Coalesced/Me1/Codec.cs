@@ -40,26 +40,28 @@ namespace Aaron.MassEffect.Coalesced.Me1
             int fileCount = input.ReadInt32();
             for (int fileIndex = 0; fileIndex < fileCount; fileIndex++)
             {
-                FileRecord fileRecord = new FileRecord { Name = ReadString(input) };
+                FileRecordCollection fileRecordCollection = new FileRecordCollection { Name = ReadString(input) };
 
                 int sectionCount = input.ReadInt32();
                 for (int sectionIndex = 0; sectionIndex < sectionCount; sectionIndex++)
                 {
-                    SectionRecord sectionRecord = new SectionRecord { Name = ReadString(input) };
+                    SectionRecordCollection sectionRecordCollection =
+                        new SectionRecordCollection { Name = ReadString(input) };
 
                     int entryCount = input.ReadInt32();
                     for (int entryIndex = 0; entryIndex < entryCount; entryIndex++)
                     {
-                        EntryRecord entryRecord = new EntryRecord { Name = ReadString(input) };
-                        entryRecord.Add(ReadString(input));
+                        EntryRecordCollection entryRecordCollection =
+                            new EntryRecordCollection { Name = ReadString(input) };
+                        entryRecordCollection.Add(ReadString(input));
 
-                        sectionRecord.Add(entryRecord);
+                        sectionRecordCollection.Add(entryRecordCollection);
                     }
 
-                    fileRecord.Add(sectionRecord);
+                    fileRecordCollection.Add(sectionRecordCollection);
                 }
 
-                container.Files.Add(fileRecord);
+                container.Files.Add(fileRecordCollection);
             }
 
             return container;
@@ -73,17 +75,17 @@ namespace Aaron.MassEffect.Coalesced.Me1
             using BinaryWriter output = new BinaryWriter(memoryStream);
 
             output.Write(value.Files.Count);
-            foreach (FileRecord fileRecord in value.Files)
+            foreach (FileRecordCollection fileRecord in value.Files)
             {
                 WriteString(fileRecord.Name, output);
 
                 output.Write(fileRecord.Count);
-                foreach (SectionRecord sectionRecord in fileRecord)
+                foreach (SectionRecordCollection sectionRecord in fileRecord)
                 {
                     WriteString(sectionRecord.Name, output);
 
                     output.Write(fileRecord.Count);
-                    foreach (EntryRecord entryRecord in sectionRecord)
+                    foreach (EntryRecordCollection entryRecord in sectionRecord)
                     {
                         WriteString(entryRecord.Name, output);
                         WriteString(entryRecord.First(), output);

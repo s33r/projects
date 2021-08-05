@@ -49,16 +49,14 @@ namespace Aaron.MassEffect.Coalesced.Records
         {
             if (FileName == null) { return string.Empty; }
 
-            StringBuilder buffer = new StringBuilder();
+            StringBuilder buffer = new StringBuilder()
+                .Append(FileName);
 
-            buffer.Append(FileName);
+            if (SectionName == null) { return buffer.ToString(); }
 
-            if (SectionName != null)
-            {
-                buffer.Append(PATH_SEPARATOR + SectionName);
+            _ = buffer.Append(PATH_SEPARATOR + SectionName);
 
-                if (EntryName != null) { buffer.Append(PATH_SEPARATOR + EntryName); }
-            }
+            if (EntryName != null) { _ = buffer.Append(PATH_SEPARATOR + EntryName); }
 
             return buffer.ToString();
         }

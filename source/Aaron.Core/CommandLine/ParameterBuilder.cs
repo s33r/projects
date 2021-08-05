@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
+// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
 // 
 // This program is free software; you can redistribute it and/or modify it under the terms of the
 // GNU Lesser General Public License as published by the Free Software Foundation; either version
@@ -30,11 +30,13 @@ namespace Aaron.Core.CommandLine
 
             List<Parameter> otherCommands = other.ToList();
 
-            foreach (Parameter parameter in otherCommands) { AddParameter(new Parameter(parameter)); }
+            foreach (Parameter parameter in otherCommands) { _ = AddParameter(new Parameter(parameter)); }
         }
 
         public ParameterBuilder AddParameter(Parameter parameter)
         {
+            if (parameter == null) { throw new ArgumentNullException(nameof(parameter)); }
+
             if (string.IsNullOrEmpty(parameter.Name))
             {
                 throw new ArgumentException("The name of the parameter cannot be null.");

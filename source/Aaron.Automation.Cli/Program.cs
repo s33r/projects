@@ -13,6 +13,7 @@
 // MA 02111-1307 USA
 
 using System;
+using Aaron.Automation.Cli.Commands;
 using Aaron.Core.CommandLine;
 using Aaron.Core.CommandLine.Syntax;
 
@@ -26,17 +27,14 @@ namespace Aaron.Automation.Cli
             runner.Execute();
 
 
-            /*
             ArgumentParser parser = new ArgumentParser();
 
-            parser.Commands.AddCommand(Clean.GetCommand());
-            parser.Commands.AddCommand(NewProject.GetCommand());
-            parser.Commands.AddCommand(Publish.GetCommand());
+            _ = parser.Commands.AddCommand(Clean.GetCommand())
+                      .AddCommand(NewProject.GetCommand())
+                      .AddCommand(Publish.GetCommand());
 
-            string[] mockArgs = {"publish"};
 
-            Run(mockArgs, parser);
-            */
+            Run(args, parser);
         }
 
         private static void Run(string[] args, ArgumentParser parser)
@@ -45,6 +43,8 @@ namespace Aaron.Automation.Cli
             Console.WriteLine("args = {0}", string.Join(' ', args));
 
             ParsedCommandLine commandLine = parser.Run(args);
+
+            if (commandLine.HasErrors) { Console.WriteLine($"{commandLine.Errors.Count} Errors"); }
 
             Console.WriteLine("-- Complete --");
         }

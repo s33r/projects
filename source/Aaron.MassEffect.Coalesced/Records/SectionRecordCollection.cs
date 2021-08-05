@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
+// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
 // 
 // This program is free software; you can redistribute it and/or modify it under the terms of the
 // GNU Lesser General Public License as published by the Free Software Foundation; either version
@@ -20,61 +20,65 @@ using Aaron.MassEffect.Core;
 
 namespace Aaron.MassEffect.Coalesced.Records
 {
-    public class SectionRecord
-        : IRecord, IEquatable<IRecord>, IList<EntryRecord>
+    public class SectionRecordCollection
+        : IRecordCollection, IEquatable<IRecordCollection>, IList<EntryRecordCollection>
     {
-        private List<EntryRecord> _values;
+        private List<EntryRecordCollection> _values;
 
-        public SectionRecord(List<EntryRecord> entries, string name)
+        public SectionRecordCollection(List<EntryRecordCollection> entries, string name)
         {
-            Name = name;
-            _values = new List<EntryRecord>();
+            if (entries == null) { throw new ArgumentNullException(nameof(entries)); }
 
-            foreach (EntryRecord entryRecord in entries)
+            Name = name;
+            _values = new List<EntryRecordCollection>();
+
+            foreach (EntryRecordCollection entryRecord in entries)
             {
                 entryRecord.Parent = this;
                 _values.Add(entryRecord);
             }
         }
 
-        public SectionRecord(List<EntryRecord> sections)
+        public SectionRecordCollection(List<EntryRecordCollection> sections)
             : this(sections, null) { }
 
-        public SectionRecord(int count)
-            : this(Utility.CreateList<EntryRecord>(count).ToList()) { }
+        public SectionRecordCollection(int count)
+            : this(Utility.CreateList<EntryRecordCollection>(count).ToList()) { }
 
-        public SectionRecord()
-            : this(new List<EntryRecord>()) { }
+        public SectionRecordCollection()
+            : this(new List<EntryRecordCollection>()) { }
 
-        public SectionRecord(string name)
-            : this(new List<EntryRecord>(), name) { }
+        public SectionRecordCollection(string name)
+            : this(new List<EntryRecordCollection>(), name) { }
 
-        public void Add(EntryRecord item)
+        public void Add(EntryRecordCollection item)
         {
+            if (item == null) { throw new ArgumentNullException(nameof(item)); }
+
             item.Parent = this;
             _values.Add(item);
         }
 
         public void Clear()
         {
-            foreach (EntryRecord item in _values) { item.Parent = null; }
+            foreach (EntryRecordCollection item in _values) { item.Parent = null; }
 
             _values.Clear();
         }
 
-        public bool Contains(EntryRecord item)
+        public bool Contains(EntryRecordCollection item)
         {
             return _values.Contains(item);
         }
 
-        public void CopyTo(EntryRecord[] array, int arrayIndex)
+        public void CopyTo(EntryRecordCollection[] array, int arrayIndex)
         {
             _values.CopyTo(array, arrayIndex);
         }
 
         public int Count => _values.Count;
 
-        public bool Equals(IRecord other)
+        public bool Equals(IRecordCollection other)
         {
             if (other == null) { return false; }
 
@@ -86,29 +90,33 @@ namespace Aaron.MassEffect.Coalesced.Records
             return _values.GetEnumerator();
         }
 
-        IEnumerator<EntryRecord> IEnumerable<EntryRecord>.GetEnumerator()
+        IEnumerator<EntryRecordCollection> IEnumerable<EntryRecordCollection>.GetEnumerator()
         {
             return _values.GetEnumerator();
         }
 
-        public int IndexOf(EntryRecord item)
+        public int IndexOf(EntryRecordCollection item)
         {
             return _values.IndexOf(item);
         }
 
-        public void Insert(int index, EntryRecord item)
+        public void Insert(int index, EntryRecordCollection item)
         {
+            if (item == null) { throw new ArgumentNullException(nameof(item)); }
+
             item.Parent = this;
             _values.Insert(index, item);
         }
 
         public bool IsReadOnly => false;
 
-        public EntryRecord this[int index]
+        public EntryRecordCollection this[int index]
         {
             get => _values[index];
             set
             {
+                if (value == null) { throw new ArgumentNullException(nameof(value)); }
+
                 value.Parent = this;
                 _values[index] = value;
             }
@@ -116,12 +124,14 @@ namespace Aaron.MassEffect.Coalesced.Records
 
         public string Name { get; set; }
 
-        public IRecord Parent { get; internal set; }
+        public IRecordCollection Parent { get; internal set; }
 
         public string Path => Parent.Name + '/' + Name;
 
-        public bool Remove(EntryRecord item)
+        public bool Remove(EntryRecordCollection item)
         {
+            if (item == null) { throw new ArgumentNullException(nameof(item)); }
+
             item.Parent = null;
             return _values.Remove(item);
         }
@@ -132,11 +142,11 @@ namespace Aaron.MassEffect.Coalesced.Records
             _values.RemoveAt(index);
         }
 
-        public override bool Equals(object other)
+        public override bool Equals(object obj)
         {
-            if (other == null || GetType() != other.GetType()) { return false; }
+            if (obj == null || GetType() != obj.GetType()) { return false; }
 
-            return Equals((IRecord)other);
+            return Equals((IRecordCollection)obj);
         }
 
         public override int GetHashCode()
@@ -145,18 +155,20 @@ namespace Aaron.MassEffect.Coalesced.Records
         }
 
 
-        public void SetValues(IEnumerable<EntryRecord> entries)
+        public void SetValues(IEnumerable<EntryRecordCollection> entries)
         {
-            _values = new List<EntryRecord>();
+            if (entries == null) { throw new ArgumentNullException(nameof(entries)); }
 
-            foreach (EntryRecord entry in entries)
+            _values = new List<EntryRecordCollection>();
+
+            foreach (EntryRecordCollection entry in entries)
             {
                 entry.Parent = this;
                 _values.Add(entry);
             }
         }
 
-        public void Sort(Comparison<IRecord> comparer)
+        public void Sort(Comparison<IRecordCollection> comparer)
         {
             _values.Sort(comparer);
         }

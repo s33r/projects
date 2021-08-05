@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
+// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
 // 
 // This program is free software; you can redistribute it and/or modify it under the terms of the
 // GNU Lesser General Public License as published by the Free Software Foundation; either version
@@ -12,6 +12,7 @@
 // program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 // MA 02111-1307 USA
 
+using System;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Aaron.Core.Tests")]
@@ -78,7 +79,9 @@ namespace Aaron.Core.CommandLine.Tokens
 
         public static bool Match(string name)
         {
-            return name.StartsWith('-') || name.StartsWith("--");
+            if (name == null) { throw new ArgumentNullException(nameof(name)); }
+
+            return name.StartsWith('-') || name.StartsWith("--", StringComparison.InvariantCulture);
         }
 
         public override string ToString()

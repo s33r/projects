@@ -13,7 +13,6 @@
 // MA 02111-1307 USA
 
 using System;
-using System.Runtime.Serialization;
 
 namespace Aaron.MassEffect.Core.Exceptions
 {
@@ -40,10 +39,10 @@ namespace Aaron.MassEffect.Core.Exceptions
             Game = game;
         }
 
-        protected GameNotSupportedException(Games game, SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {
-            Game = game;
-        }
+        public GameNotSupportedException() { }
+
+        public GameNotSupportedException(string message) : base(message) { }
+
+        public GameNotSupportedException(string message, Exception innerException) : base(message, innerException) { }
     }
 }

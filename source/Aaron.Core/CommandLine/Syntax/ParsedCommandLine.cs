@@ -26,6 +26,9 @@ namespace Aaron.Core.CommandLine.Syntax
 
         public bool HasFatalErrors => Errors.Find(e => e.Fatal) != null;
         public string Leftover { get; set; }
+
+#pragma warning disable CA2227 // Collection properties should be read only
         public List<Parameter> Parameters { get; set; }
+#pragma warning restore CA2227 // Collection properties should be read only
     }
 }

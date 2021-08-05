@@ -49,6 +49,8 @@ namespace Aaron.Core.CommandLine.Syntax
 
         public Command(Command otherCommand)
         {
+            if (otherCommand == null) { throw new ArgumentNullException(nameof(otherCommand)); }
+
             Name = otherCommand.Name;
             ShortDescription = otherCommand.ShortDescription;
             LongDescription = otherCommand.LongDescription;

@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
+// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
 // 
 // This program is free software; you can redistribute it and/or modify it under the terms of the
 // GNU Lesser General Public License as published by the Free Software Foundation; either version
@@ -74,12 +74,16 @@ namespace Aaron.Binary.Compression.Huffman
             }
 
             List<Node> nodes = frequencies.Select(
-                symbol => new Node { Symbol = symbol.Key, Frequency = symbol.Value }).ToList();
+                symbol => new Node
+                {
+                    Symbol = symbol.Key,
+                    Frequency = symbol.Value,
+                }).ToList();
 
             while (nodes.Count > 1)
             {
-                List<Node> orderedNodes = nodes
-                                          .OrderBy(n => n.Frequency).ToList();
+                List<Node> orderedNodes
+                    = nodes.OrderBy(n => n.Frequency).ToList();
 
                 if (orderedNodes.Count >= 2)
                 {
@@ -89,7 +93,10 @@ namespace Aaron.Binary.Compression.Huffman
 
                     Node parent = new Node
                     {
-                        Symbol = '\0', Frequency = first.Frequency + second.Frequency, Left = first, Right = second,
+                        Symbol = '\0',
+                        Frequency = first.Frequency + second.Frequency,
+                        Left = first,
+                        Right = second,
                     };
 
                     _ = nodes.Remove(first);

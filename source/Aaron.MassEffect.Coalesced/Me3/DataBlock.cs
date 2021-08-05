@@ -37,7 +37,7 @@ namespace Aaron.MassEffect.Coalesced.Me3
         public void Dump(string rootName)
         {
             string fileName = $"{rootName}.data.txt";
-            string outputLocation = Path.Join(Configuration.Instance.WorkingLocation, fileName);
+            string outputLocation = Path.Join(MassEffectConfiguration.Instance.WorkingLocation, fileName);
 
             string text = Dump();
             text = rootName + "\n" + text;
@@ -65,7 +65,7 @@ namespace Aaron.MassEffect.Coalesced.Me3
         public void Write(BinaryWriter output, Codec codec)
         {
             MemoryStream bufferStream = new MemoryStream();
-            BinaryWriter buffer = new BinaryWriter(bufferStream);
+            using BinaryWriter buffer = new BinaryWriter(bufferStream);
 
             BitArray compressedData = new BitArray(codec.HuffmanTree.Encoder.TotalBits);
 

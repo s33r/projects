@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
+// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
 // 
 // This program is free software; you can redistribute it and/or modify it under the terms of the
 // GNU Lesser General Public License as published by the Free Software Foundation; either version
@@ -12,6 +12,7 @@
 // program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 // MA 02111-1307 USA
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Aaron.Core.CommandLine.Tokens;
@@ -24,6 +25,10 @@ namespace Aaron.Core.CommandLine.Syntax
                                               Dictionary<string, Command> commands,
                                               List<CommandLineError> errors)
         {
+            if (commands == null) { throw new ArgumentNullException(nameof(commands)); }
+
+            if (errors == null) { throw new ArgumentNullException(nameof(errors)); }
+
             Queue<IToken> tokenQueue = new Queue<IToken>(tokens);
 
             IToken commandToken = tokenQueue.Dequeue();
@@ -47,7 +52,9 @@ namespace Aaron.Core.CommandLine.Syntax
 
             ParsedCommandLine commandLine = new ParsedCommandLine
             {
-                Command = command, Leftover = leftover, Parameters = new List<Parameter>(),
+                Command = command,
+                Leftover = leftover,
+                Parameters = new List<Parameter>(),
             };
 
             commandLine.Errors.AddRange(errors);
@@ -59,11 +66,17 @@ namespace Aaron.Core.CommandLine.Syntax
                                               Dictionary<string, Parameter> supportedParameters,
                                               List<CommandLineError> errors)
         {
+            if (errors == null) { throw new ArgumentNullException(nameof(errors)); }
+
+            if (supportedParameters == null) { throw new ArgumentNullException(nameof(supportedParameters)); }
+
             if (tokens == null)
             {
                 return new ParsedCommandLine
                 {
-                    Leftover = string.Empty, Command = null, Parameters = new List<Parameter>(),
+                    Leftover = string.Empty,
+                    Command = null,
+                    Parameters = new List<Parameter>(),
                 };
             }
 
@@ -77,7 +90,11 @@ namespace Aaron.Core.CommandLine.Syntax
 
             CheckRequired(tokens, supportedParameters.Values.ToList(), errors);
 
-            ParsedCommandLine commandLine = new ParsedCommandLine {Leftover = leftover, Parameters = parameters};
+            ParsedCommandLine commandLine = new ParsedCommandLine
+            {
+                Leftover = leftover,
+                Parameters = parameters,
+            };
 
             commandLine.Errors.AddRange(errors);
 

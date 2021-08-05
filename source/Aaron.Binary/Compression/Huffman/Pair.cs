@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
+// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
 // 
 // This program is free software; you can redistribute it and/or modify it under the terms of the
 // GNU Lesser General Public License as published by the Free Software Foundation; either version
@@ -40,10 +40,10 @@ using System;
 
 namespace Aaron.Binary.Compression.Huffman
 {
-    public class Pair : IComparable, IComparable<Pair>
+    public class Pair : IComparable, IComparable<Pair>, IEquatable<Pair>
     {
-        public int Left;
-        public int Right;
+        public int Left { get; set; }
+        public int Right { get; set; }
 
         public Pair()
             : this(0, 0) { }
@@ -61,6 +61,8 @@ namespace Aaron.Binary.Compression.Huffman
 
         public int CompareTo(Pair other)
         {
+            if (other == null) { throw new ArgumentNullException(nameof(other)); }
+
             if (other.Left > Left) { return -1; }
 
             if (other.Left < Left) { return 1; }
@@ -70,6 +72,67 @@ namespace Aaron.Binary.Compression.Huffman
             if (other.Right > Right) { return -1; }
 
             return 1;
+        }
+
+        public bool Equals(Pair other)
+        {
+            if (other is null) { return false; }
+
+            if (ReferenceEquals(this, other)) { return true; }
+
+            return Left == other.Left && Right == other.Right;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is null) { return false; }
+
+            if (ReferenceEquals(this, obj)) { return true; }
+
+            if (obj.GetType() != GetType()) { return false; }
+
+            return Equals((Pair)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Left, Right);
+        }
+
+        public static bool operator ==(Pair left, Pair right)
+        {
+            if (left is null) { return right is null; }
+
+            return left.Equals(right);
+        }
+
+        public static bool operator >(Pair left, Pair right)
+        {
+            return left is not null && left.CompareTo(right) > 0;
+        }
+
+        public static bool operator >=(Pair left, Pair right)
+        {
+            return left is null
+                ? right is null
+                : left.CompareTo(right) >= 0;
+        }
+
+        public static bool operator !=(Pair left, Pair right)
+        {
+            return !(left == right);
+        }
+
+        public static bool operator <(Pair left, Pair right)
+        {
+            return left is null
+                ? right is not null
+                : left.CompareTo(right) < 0;
+        }
+
+        public static bool operator <=(Pair left, Pair right)
+        {
+            return left is null || left.CompareTo(right) <= 0;
         }
     }
 }

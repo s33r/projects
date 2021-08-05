@@ -12,7 +12,18 @@
 // program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 // MA 02111-1307 USA
 
-namespace Aaron.MassEffect.Core.Extensions
+using System;
+
+namespace Aaron.MassEffect.Coalesced
 {
-    internal class List { }
+    public class InvalidCoalescedDataException : Exception
+    {
+        public InvalidCoalescedDataException(string message)
+            : base(message) { }
+
+        public InvalidCoalescedDataException(string message, Exception innerException)
+            : base(message, innerException) { }
+
+        public InvalidCoalescedDataException() { }
+    }
 }

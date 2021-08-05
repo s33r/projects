@@ -47,7 +47,7 @@ namespace Aaron.MassEffect.Coalesced.Me3
         public void Dump(string rootName)
         {
             string fileName = $"{rootName}.strings.txt";
-            string outputLocation = Path.Join(Configuration.Instance.WorkingLocation, fileName);
+            string outputLocation = Path.Join(MassEffectConfiguration.Instance.WorkingLocation, fileName);
 
             string text = Dump();
             text = rootName + "\n" + text;
@@ -91,7 +91,7 @@ namespace Aaron.MassEffect.Coalesced.Me3
         {
             foreach (StringTableEntry entry in Entries)
             {
-                if (!entry.Validate()) { throw new Exception($"Invalid Checksum for: {entry}"); }
+                if (!entry.Validate()) { throw new InvalidCoalescedDataException($"Invalid Checksum for: {entry}"); }
             }
         }
 
@@ -103,7 +103,10 @@ namespace Aaron.MassEffect.Coalesced.Me3
             //TODO: verify that this isn't needed because of a read error
             stringTable.Add(new StringTableEntry("", 0, 0));
 
-            foreach (IRecord record in codec.Container) { stringTable.Add(new StringTableEntry(record.Name)); }
+            foreach (IRecordCollection record in codec.Container)
+            {
+                stringTable.Add(new StringTableEntry(record.Name));
+            }
 
 
             stringTable = stringTable
@@ -117,7 +120,7 @@ namespace Aaron.MassEffect.Coalesced.Me3
             using BinaryWriter buffer = new BinaryWriter(bufferStream);
 
             // First - Write out the [Content] section - needed so we can know the offsets.
-            bufferStream.Position = HEADER_LENGTH + INDEX_ENTRY_LENGTH * stringTable.Count;
+            bufferStream.Position = HEADER_LENGTH + (INDEX_ENTRY_LENGTH * stringTable.Count);
 
             foreach (StringTableEntry entry in stringTable)
             {

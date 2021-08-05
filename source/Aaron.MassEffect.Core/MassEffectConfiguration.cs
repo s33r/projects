@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
+// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
 // 
 // This program is free software; you can redistribute it and/or modify it under the terms of the
 // GNU Lesser General Public License as published by the Free Software Foundation; either version
@@ -18,7 +18,7 @@ using System.IO;
 
 namespace Aaron.MassEffect.Core
 {
-    public sealed class Configuration
+    public sealed class MassEffectConfiguration
     {
         public Dictionary<Games, GameConfiguration> Game { get; } = new Dictionary<Games, GameConfiguration>();
         public string GameBaseLocation { get; set; }
@@ -59,19 +59,20 @@ namespace Aaron.MassEffect.Core
             });
 
 
-            Directory.CreateDirectory(WorkingLocation);
+            _ = Directory.CreateDirectory(WorkingLocation);
         }
 
         #region Singleton
 
-        private static readonly Configuration _instance = new Configuration();
+        // ReSharper disable once InconsistentNaming
+        private static readonly MassEffectConfiguration _instance = new MassEffectConfiguration();
 
-        static Configuration() { }
+        static MassEffectConfiguration() { }
 
-        private Configuration() { }
+        private MassEffectConfiguration() { }
 
         // ReSharper disable once ConvertToAutoProperty
-        public static Configuration Instance => _instance;
+        public static MassEffectConfiguration Instance { get; } = _instance;
 
         #endregion
     }

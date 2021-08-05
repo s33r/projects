@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
+// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
 // 
 // This program is free software; you can redistribute it and/or modify it under the terms of the
 // GNU Lesser General Public License as published by the Free Software Foundation; either version
@@ -21,7 +21,7 @@ namespace Aaron.Core.CommandLine.Tokens
         public SwitchToken(string name)
         {
             if (Match(name)) { Name = name; }
-            else { throw new Exception("Invalid SwitchToken"); }
+            else { throw new InvalidTokenException(TokenTypes.Switch, name); }
         }
 
         public IToken Clean()
@@ -50,6 +50,8 @@ namespace Aaron.Core.CommandLine.Tokens
 
         public static bool Match(string name)
         {
+            if (name == null) { throw new ArgumentNullException(nameof(name)); }
+
             return name.StartsWith('/');
         }
 

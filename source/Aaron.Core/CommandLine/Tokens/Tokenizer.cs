@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
+// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
 // 
 // This program is free software; you can redistribute it and/or modify it under the terms of the
 // GNU Lesser General Public License as published by the Free Software Foundation; either version
@@ -12,6 +12,7 @@
 // program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 // MA 02111-1307 USA
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -21,9 +22,11 @@ namespace Aaron.Core.CommandLine.Tokens
     {
         public static List<IToken> Parse(string[] args, List<CommandLineError> errors)
         {
+            if (errors == null) { throw new ArgumentNullException(nameof(errors)); }
+
             if (args == null || args.Length == 0)
             {
-                errors.Add(new CommandLineError {Message = "The are no arguments to tokenize."});
+                errors.Add(new CommandLineError { Message = "The are no arguments to tokenize." });
 
                 return new List<IToken>();
             }
@@ -59,7 +62,7 @@ namespace Aaron.Core.CommandLine.Tokens
                     token = token.Collapse(nextToken, out bool consumed, out bool outContinueLook);
                     continueLook = outContinueLook;
 
-                    if (consumed) { tokenQueue.Dequeue(); }
+                    if (consumed) { _ = tokenQueue.Dequeue(); }
                 }
 
                 result.Add(token);

@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
+// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
 // 
 // This program is free software; you can redistribute it and/or modify it under the terms of the
 // GNU Lesser General Public License as published by the Free Software Foundation; either version
@@ -20,5 +20,10 @@ namespace Aaron.Core.CommandLine
     {
         public DuplicateCommandException(string commandName)
             : base($"The command {commandName} already exists!") { }
+
+        public DuplicateCommandException(string commandName, Exception innerException)
+            : base($"The command {commandName} already exists!", innerException) { }
+
+        public DuplicateCommandException() { }
     }
 }
