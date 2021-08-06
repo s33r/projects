@@ -62,6 +62,9 @@ namespace Aaron.MassEffect.Core
             _ = Directory.CreateDirectory(WorkingLocation);
         }
 
+
+        public void Save() { }
+
         #region Singleton
 
         // ReSharper disable once InconsistentNaming
@@ -72,6 +75,7 @@ namespace Aaron.MassEffect.Core
         private MassEffectConfiguration() { }
 
         // ReSharper disable once ConvertToAutoProperty
+        // ReSharper disable once ReplaceAutoPropertyWithComputedProperty
         public static MassEffectConfiguration Instance { get; } = _instance;
 
         #endregion

@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
+// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
 // 
 // This program is free software; you can redistribute it and/or modify it under the terms of the
 // GNU Lesser General Public License as published by the Free Software Foundation; either version
@@ -12,75 +12,129 @@
 // program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 // MA 02111-1307 USA
 
+using System;
 using System.Collections.Generic;
-using System.IO;
-using Aaron.MassEffect.Coalesced;
-using Aaron.MassEffect.Coalesced.Records;
-using Aaron.MassEffect.Core;
+using System.Text;
+using Aaron.Core.CommandLine;
+using Aaron.Core.Extensions;
+using Aaron.Core.JsonConfig;
 
 namespace Aaron.MassEffect.CommandLine
 {
     internal class Program
     {
-        private static void BuildAnnotations(Games game, Container container, string outputLocation)
+        private static void Main(string[] args)
         {
-            List<Annotation> annotations = new List<Annotation>();
+            ShowBanner();
 
-            foreach (FileRecordCollection fileRecord in container.Files)
+            MassEffectCliConfiguration defaultConfig = new MassEffectCliConfiguration();
+            defaultConfig.GameLocation =
+                @"C:\Program Files (x86)\Steam\steamapps\common\Mass Effect Legendary Edition\Game\";
+
+            ConfigurationHost.Instance.Load<MassEffectCliConfiguration>("me/config");
+
+            ArgumentParser parser = new ArgumentParser();
+
+            new CommandFactory(parser.Commands)
+                .AddConfigCommand()
+                .AddOptionCommand()
+                .AddSaveCommand();
+
+            //TODO: Debug
+
+#if DEBUG
+            string[] debugArgs = { "option" };
+
+            parser.Run(debugArgs);
+#else
+            parser.Run(args);
+#endif
+        }
+
+        private static void ShowBanner()
+        {
+            List<string> emoji = new List<string>(Emoji.ListEmoji());
+
+            foreach (string emote in emoji)
             {
-                annotations.Add(new Annotation(game, fileRecord));
-
-                foreach (SectionRecordCollection sectionRecord in fileRecord)
-                {
-                    annotations.Add(new Annotation(game, sectionRecord));
-                    foreach (EntryRecordCollection entryRecord in sectionRecord)
-                    {
-                        annotations.Add(new Annotation(game, entryRecord));
-                    }
-                }
+                Console.WriteLine(emote);
             }
 
+            return;
 
-            string json = AnnotationSerializer.Serialize(game, annotations);
-            File.WriteAllText(outputLocation, json);
+
+            string smallFlag = "🇺🇸";
+            byte[] data = Encoding.UTF8.GetBytes("US");
+            byte[] flagData = Encoding.UTF8.GetBytes(smallFlag);
+            Console.WriteLine(flagData.ToByteString());
+            Console.WriteLine(data.ToByteString());
+            Console.WriteLine();
+
+            string smallCloud = "☁";
+            string bigCloud = "☁️";
+
+            byte[] smallData = Encoding.UTF8.GetBytes(smallCloud);
+            byte[] bigData = Encoding.UTF8.GetBytes(bigCloud);
+
+            Console.WriteLine(smallData.ToByteString());
+            Console.WriteLine(bigData.ToByteString());
+
+            char star = '⭐';
+            char cloud = '☁';
+            string cloudString1 = cloud.ToString();
+            string cloudString2 = "☁️";
+            int cloudLength1 = cloudString1.Length;
+            int cloudLength2 = cloudString2.Length;
+
+            Console.OutputEncoding = Encoding.UTF8;
+
+            ShowRuler(100);
+            Console.WriteLine("⭐☁️");
+            Console.WriteLine(star);
+            Console.WriteLine(cloud);
+
+
+            string ok = "hello".Center("☁️", 10);
+
+            Console.WriteLine(ok);
+
+            Console.WriteLine("╔══════════════════════════════════════╗");
+            Console.WriteLine("║       ⭐ Mass Effect Editor ⭐       ║");
+            Console.WriteLine("║ Copyright ©️ 2021 - Aaron C. Willows ║");
+            Console.WriteLine("╟──────────────────────────────────────╢");
+            Console.WriteLine();
         }
 
-        private static List<Annotation> LoadAnnotations(string inputLocation)
-        {
-            string json = File.ReadAllText(inputLocation);
 
-            return AnnotationSerializer.Deserialize(json);
+        private static void ShowRuler(int width)
+        {
+            int ten = width / 10;
+
+            StringBuilder line1 = new StringBuilder();
+            StringBuilder line2 = new StringBuilder();
+            for (int i = 0; i < ten; i++)
+            {
+                line1.Append(i.ToString().PadRight(10, '-'));
+                line2.Append("0123456789");
+            }
+
+            Console.WriteLine(line1);
+            Console.WriteLine(line2);
         }
 
-
-        private static void Main()
+        private class MassEffectCliConfiguration : IConfigurable
         {
-            MassEffectConfiguration.Instance.Initialize();
+            public string GameLocation { get; set; }
 
-            string m1Location = Path.Join(MassEffectConfiguration.Instance.WorkingLocation, "me1.annotations.json");
-            string m2Location = Path.Join(MassEffectConfiguration.Instance.WorkingLocation, "me2.annotations.json");
-            string m3Location = Path.Join(MassEffectConfiguration.Instance.WorkingLocation, "me3.annotations.json");
+            public IConfigurable Copy()
+            {
+                MassEffectCliConfiguration copy = new MassEffectCliConfiguration
+                {
+                    GameLocation = GameLocation,
+                };
 
-
-            Container me1 = CoalescedFile.Load(Games.Me1,
-                MassEffectConfiguration.Instance.Game[Games.Me1].CoalescedConfigurationLocation);
-            Container me2 = CoalescedFile.Load(Games.Me2,
-                MassEffectConfiguration.Instance.Game[Games.Me2].CoalescedConfigurationLocation);
-            Container me3 = CoalescedFile.Load(Games.Me3,
-                MassEffectConfiguration.Instance.Game[Games.Me3].CoalescedConfigurationLocation);
-
-            BuildAnnotations(Games.Me1, me1, m1Location);
-            BuildAnnotations(Games.Me2, me2, m2Location);
-            BuildAnnotations(Games.Me3, me3, m3Location);
-
-
-#pragma warning disable IDE0059 // Unnecessary assignment of a value
-            List<Annotation> me1A = LoadAnnotations(m1Location);
-
-            List<Annotation> me2A = LoadAnnotations(m2Location);
-            List<Annotation> me3A = LoadAnnotations(m3Location);
-
-#pragma warning restore IDE0059 // Unnecessary assignment of a value
+                return copy;
+            }
         }
     }
 }

@@ -13,7 +13,9 @@
 // MA 02111-1307 USA
 
 using System;
+using System.IO;
 using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,7 +32,78 @@ namespace Aaron.MassEffect.Web
             _ = builder.Services.AddScoped(serviceProvider =>
                 new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
+
+            TestIo();
+
             await builder.Build().RunAsync();
+        }
+
+        private static void DirPrinter(string directoryLocation, int depth)
+        {
+            foreach (string directory in Directory.GetDirectories(directoryLocation))
+            {
+                Console.WriteLine($"{new string(' ', depth)}📁 {directory}");
+            }
+
+            foreach (string file in Directory.GetFiles(directoryLocation))
+            {
+                Console.WriteLine($"{new string(' ', depth)}🗎 {file}");
+            }
+
+            foreach (string directory in Directory.GetDirectories(directoryLocation))
+            {
+                DirPrinter(directory, depth++);
+            }
+        }
+
+        private static void ReadRandom()
+        {
+            string fileLocation = "./dev/random";
+            int totalData = 8;
+
+            using BinaryReader input = new BinaryReader(File.OpenRead(fileLocation));
+
+            byte[] data = input.ReadBytes(totalData);
+
+            foreach (byte bite in data) { Console.Write("{0:X2} ", bite); }
+
+            Console.WriteLine();
+        }
+
+        private static async void TestIo()
+        {
+            string fileLocation = "file.txt";
+            string message = "Hello World";
+
+            ReadRandom();
+
+            DirPrinter(".", 0);
+
+            await File.WriteAllTextAsync(fileLocation, message);
+
+            FileInfo info = new FileInfo(fileLocation);
+/*            Console.WriteLine($"    info.FullName = {info.FullName}");
+            Console.WriteLine($"info.CreationTime = {info.CreationTime}");
+            Console.WriteLine($"      info.Length = {info.Length}");
+            Console.WriteLine($"  info.Attributes = {info.Attributes}");*/
+
+            Console.WriteLine("---------------------");
+            Console.WriteLine($"Environment.UserName = {Environment.UserName}");
+            Console.WriteLine($"Environment.MachineName = {Environment.MachineName}");
+            Console.WriteLine($"Environment.OSVersion = {Environment.OSVersion}");
+            Console.WriteLine($"Environment.OSVersion = {Environment.Is64BitOperatingSystem}");
+            Console.WriteLine($"Environment.OSVersion = {Environment.NewLine}");
+
+            Console.WriteLine($"RuntimeEnvironment.GetRuntimeDirectory = {RuntimeEnvironment.GetRuntimeDirectory()}");
+            Console.WriteLine($"RuntimeInformation.OSArchitecture = {RuntimeInformation.OSArchitecture}");
+            Console.WriteLine($"RuntimeInformation.OSDescription = {RuntimeInformation.OSDescription}");
+            Console.WriteLine($"RuntimeInformation.RuntimeIdentifier = {RuntimeInformation.RuntimeIdentifier}");
+            Console.WriteLine($"RuntimeInformation.FrameworkDescription = {RuntimeInformation.FrameworkDescription}");
+
+
+            string result = await File.ReadAllTextAsync(fileLocation);
+
+            Console.WriteLine(result);
         }
     }
 }

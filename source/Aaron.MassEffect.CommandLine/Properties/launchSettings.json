@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Aaron.MassEffect.CommandLine": {
+      "commandName": "Project"
+    },
+    "Windows Terminal": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Users\\Aaron\\AppData\\Local\\Microsoft\\WindowsApps\\wt.exe",
+      "commandLineArgs": "dotnet run -p Aaron.MassEffect.CommandLine.csproj"
+    }
+  }
+}

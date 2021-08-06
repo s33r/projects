@@ -1,12 +1,12 @@
 <Project>
     <PropertyGroup>
-        <OutDir>../../.output/$(MSBuildProjectName)/</OutDir>
+        <OutDir>../../.output/$(MSBuildProjectName)/$(Configuration)/</OutDir>
         <EnableNETAnalyzers>true</EnableNETAnalyzers>
         <AnalysisMode>AllEnabledByDefault</AnalysisMode>
     </PropertyGroup>
 
     <Target Name="PostClean"  AfterTargets="Clean">
-        <RemoveDir Directories="../../.output/$(MSBuildProjectName)/" />
+        <RemoveDir Directories="../../.output/$(MSBuildProjectName)/$(Configuration)/" />
         <RemoveDir Directories="obj" />
     </Target>
 </Project>
