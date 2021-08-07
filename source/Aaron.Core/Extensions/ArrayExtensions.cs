@@ -12,6 +12,7 @@
 // program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 // MA 02111-1307 USA
 
+using System;
 using System.Globalization;
 using System.Text;
 
@@ -21,6 +22,8 @@ namespace Aaron.Core.Extensions
     {
         public static string ToByteString(this byte[] bytes, int start, int length)
         {
+            if (bytes is null) { throw new ArgumentNullException(nameof(bytes)); }
+
             StringBuilder stringBuilder = new StringBuilder();
 
             for (int i = start; i < length + start; i++)
@@ -33,11 +36,15 @@ namespace Aaron.Core.Extensions
 
         public static string ToByteString(this byte[] bytes, int start)
         {
+            if (bytes is null) { throw new ArgumentNullException(nameof(bytes)); }
+
             return ToByteString(bytes, start, bytes.Length);
         }
 
         public static string ToByteString(this byte[] bytes)
         {
+            if (bytes is null) { throw new ArgumentNullException(nameof(bytes)); }
+
             return ToByteString(bytes, 0, bytes.Length);
         }
     }

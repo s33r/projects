@@ -81,11 +81,6 @@ namespace Aaron.MassEffect.Web
 
             await File.WriteAllTextAsync(fileLocation, message);
 
-            FileInfo info = new FileInfo(fileLocation);
-/*            Console.WriteLine($"    info.FullName = {info.FullName}");
-            Console.WriteLine($"info.CreationTime = {info.CreationTime}");
-            Console.WriteLine($"      info.Length = {info.Length}");
-            Console.WriteLine($"  info.Attributes = {info.Attributes}");*/
 
             Console.WriteLine("---------------------");
             Console.WriteLine($"Environment.UserName = {Environment.UserName}");

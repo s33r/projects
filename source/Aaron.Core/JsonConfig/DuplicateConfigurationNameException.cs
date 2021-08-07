@@ -24,6 +24,8 @@ namespace Aaron.Core.JsonConfig
         public DuplicateConfigurationNameException(string name, Exception innerException)
             : base(GetMessage(name), innerException) { }
 
+        public DuplicateConfigurationNameException() { }
+
 
         private static string GetMessage(string name)
         {

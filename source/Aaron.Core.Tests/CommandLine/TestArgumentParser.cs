@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
+// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
 // 
 // This program is free software; you can redistribute it and/or modify it under the terms of the
 // GNU Lesser General Public License as published by the Free Software Foundation; either version
@@ -40,7 +40,7 @@ namespace Aaron.Core.Tests.CommandLine
         [TestMethod]
         public void TestAddCommand()
         {
-            string[] args = {"command"};
+            string[] args = { "command" };
             bool functionCalled = false;
 
             Command command = new Command("command");
@@ -58,7 +58,7 @@ namespace Aaron.Core.Tests.CommandLine
         [TestMethod]
         public void TestAddDefaultParameter()
         {
-            string[] args = {"--test", "f"};
+            string[] args = { "--test", "f" };
             bool functionCalled = false;
 
             Parameter parameter = new Parameter("test");
@@ -106,10 +106,10 @@ namespace Aaron.Core.Tests.CommandLine
         [TestMethod]
         public void TestFatalError()
         {
-            string[] args = {"--oops", "f"};
+            string[] args = { "--oops", "f" };
             bool functionCalled = false;
 
-            Parameter parameter = new Parameter("test") {Required = true};
+            Parameter parameter = new Parameter("test") { Required = true };
 
 
             ArgumentParser parser = new ArgumentParser();

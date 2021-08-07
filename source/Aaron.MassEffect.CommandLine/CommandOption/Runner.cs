@@ -21,6 +21,8 @@ namespace Aaron.MassEffect.CommandLine.CommandOption
     {
         public static void Main(ParsedCommandLine commandLine)
         {
+            if (commandLine is null) { throw new ArgumentNullException(nameof(commandLine)); }
+
             Console.WriteLine(commandLine.Command);
         }
     }

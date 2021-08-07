@@ -12,15 +12,27 @@
 // program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 // MA 02111-1307 USA
 
+using System;
 using System.Text;
 
 namespace Aaron.Core.Extensions
 {
     public static class StringExtension
     {
-        public static string Center(this string str, string padding, int length)
+        public static string Center(this string str, int totalLength, string padding)
         {
-            int paddingCount = (length - str.Length) / padding.Length;
+            if (str is null) { throw new ArgumentNullException(nameof(str)); }
+
+            return Center(str, totalLength, str.Length, padding);
+        }
+
+        public static string Center(this string str, int totalLength, int overrideStringLength, string padding)
+        {
+            if (str is null) { throw new ArgumentNullException(nameof(str)); }
+
+            if (padding is null) { throw new ArgumentNullException(nameof(padding)); }
+
+            int paddingCount = (totalLength - overrideStringLength) / padding.Length / 2;
 
             if (paddingCount <= 0) { return str; }
 
@@ -32,6 +44,25 @@ namespace Aaron.Core.Extensions
 
             for (int i = 0; i < paddingCount; i++) { stringBuilder.Append(padding); }
 
+
+            return stringBuilder.ToString();
+        }
+
+        public static string PadLeft(this string str, int totalLength, int overrideStringLength, string padding)
+        {
+            if (str is null) { throw new ArgumentNullException(nameof(str)); }
+
+            if (padding is null) { throw new ArgumentNullException(nameof(padding)); }
+
+            int paddingCount = (totalLength - overrideStringLength) / padding.Length;
+
+            if (paddingCount <= 0) { return str; }
+
+            StringBuilder stringBuilder = new StringBuilder();
+
+            for (int i = 0; i < paddingCount; i++) { stringBuilder.Append(padding); }
+
+            stringBuilder.Append(str);
 
             return stringBuilder.ToString();
         }

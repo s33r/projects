@@ -20,7 +20,8 @@ using Aaron.MassEffect.Core;
 
 namespace Aaron.MassEffect.CommandLine
 {
-    internal class TestingStuff
+    // ReSharper disable once UnusedMember.Global
+    internal static class TestingStuff
     {
         private static void BuildAnnotations(Games game, Container container, string outputLocation)
         {

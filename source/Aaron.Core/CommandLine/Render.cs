@@ -12,15 +12,40 @@
 // program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 // MA 02111-1307 USA
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
+using Aaron.Core.Extensions;
 
 namespace Aaron.Core.CommandLine
 {
     public static class Render
     {
         public const int MAX_WIDTH = 100;
+
+        public static IEnumerable<string> Banner(string title, string copyright, string message)
+        {
+            string topBorder = $"╔{new string('═', MAX_WIDTH - 2)}╗";
+            string midBorder = $"╟{new string('─', MAX_WIDTH - 2)}╢";
+            string bottomBorder = $"╚{new string('═', MAX_WIDTH - 2)}╝";
+
+            int titleLength = Emoji.GetActualLength(title);
+            int copyrightLength = Emoji.GetActualLength(copyright);
+            int messageLength = Emoji.GetActualLength(message);
+
+            List<string> result = new List<string>
+            {
+                topBorder,
+                $"║ {title.Center(MAX_WIDTH - 4, titleLength, ".")} ║",
+                $"║ {copyright.Center(MAX_WIDTH - 4, copyrightLength, ".")} ║",
+                midBorder,
+                $"║ {message.PadLeft(MAX_WIDTH - 4, messageLength, " ")} ║",
+                bottomBorder,
+            };
+
+            return result;
+        }
 
         public static IEnumerable<string> ColumnHeaders()
         {
@@ -39,6 +64,14 @@ namespace Aaron.Core.CommandLine
                 line1.ToString(),
                 line2.ToString(),
             };
+        }
+
+
+        public static void Write(IEnumerable<string> lines)
+        {
+            if (lines is null) { throw new ArgumentNullException(nameof(lines)); }
+
+            foreach (string line in lines) { Console.WriteLine(line); }
         }
     }
 }

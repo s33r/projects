@@ -13,10 +13,7 @@
 // MA 02111-1307 USA
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Aaron.Core.CommandLine;
-using Aaron.Core.Extensions;
 using Aaron.Core.JsonConfig;
 
 namespace Aaron.MassEffect.CommandLine
@@ -27,9 +24,11 @@ namespace Aaron.MassEffect.CommandLine
         {
             ShowBanner();
 
-            MassEffectCliConfiguration defaultConfig = new MassEffectCliConfiguration();
-            defaultConfig.GameLocation =
-                @"C:\Program Files (x86)\Steam\steamapps\common\Mass Effect Legendary Edition\Game\";
+            MassEffectCliConfiguration defaultConfig = new MassEffectCliConfiguration
+            {
+                GameLocation =
+                    @"C:\Program Files (x86)\Steam\steamapps\common\Mass Effect Legendary Edition\Game\",
+            };
 
             ConfigurationHost.Instance.Load<MassEffectCliConfiguration>("me/config");
 
@@ -53,74 +52,16 @@ namespace Aaron.MassEffect.CommandLine
 
         private static void ShowBanner()
         {
-            List<string> emoji = new List<string>(Emoji.ListEmoji());
+            foreach (string emote in Emoji.ListEmoji()) { Console.WriteLine($"[{emote.Length}] {emote}  |"); }
 
-            foreach (string emote in emoji)
-            {
-                Console.WriteLine(emote);
-            }
-
-            return;
-
-
-            string smallFlag = "🇺🇸";
-            byte[] data = Encoding.UTF8.GetBytes("US");
-            byte[] flagData = Encoding.UTF8.GetBytes(smallFlag);
-            Console.WriteLine(flagData.ToByteString());
-            Console.WriteLine(data.ToByteString());
-            Console.WriteLine();
-
-            string smallCloud = "☁";
-            string bigCloud = "☁️";
-
-            byte[] smallData = Encoding.UTF8.GetBytes(smallCloud);
-            byte[] bigData = Encoding.UTF8.GetBytes(bigCloud);
-
-            Console.WriteLine(smallData.ToByteString());
-            Console.WriteLine(bigData.ToByteString());
-
-            char star = '⭐';
-            char cloud = '☁';
-            string cloudString1 = cloud.ToString();
-            string cloudString2 = "☁️";
-            int cloudLength1 = cloudString1.Length;
-            int cloudLength2 = cloudString2.Length;
-
-            Console.OutputEncoding = Encoding.UTF8;
-
-            ShowRuler(100);
-            Console.WriteLine("⭐☁️");
-            Console.WriteLine(star);
-            Console.WriteLine(cloud);
-
-
-            string ok = "hello".Center("☁️", 10);
-
-            Console.WriteLine(ok);
-
-            Console.WriteLine("╔══════════════════════════════════════╗");
-            Console.WriteLine("║       ⭐ Mass Effect Editor ⭐       ║");
-            Console.WriteLine("║ Copyright ©️ 2021 - Aaron C. Willows ║");
-            Console.WriteLine("╟──────────────────────────────────────╢");
-            Console.WriteLine();
+            Render.Write(Render.ColumnHeaders());
+            Render.Write(Render.Banner(
+                $"{Emoji.Star} Mass Effect Editor {Emoji.Star}", //20 + 2 + 2
+                "Copyright ©️ 2021 - Aaron C. Willows",
+                "This is a message"
+            ));
         }
 
-
-        private static void ShowRuler(int width)
-        {
-            int ten = width / 10;
-
-            StringBuilder line1 = new StringBuilder();
-            StringBuilder line2 = new StringBuilder();
-            for (int i = 0; i < ten; i++)
-            {
-                line1.Append(i.ToString().PadRight(10, '-'));
-                line2.Append("0123456789");
-            }
-
-            Console.WriteLine(line1);
-            Console.WriteLine(line2);
-        }
 
         private class MassEffectCliConfiguration : IConfigurable
         {
