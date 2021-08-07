@@ -38,6 +38,9 @@ namespace Aaron.Core.CommandLine
         public static string Stopwatch { get; } = "⏱️";
         public static string Skull     { get; } = "☠️";
         public static string Gear      { get; } = "⚙️";
+        public static string Folder    { get; } = "📁";
+        public static string File      { get; } = "📃";
+        public static string Search    { get; } = "🔍";
 
 #pragma warning restore format
     }

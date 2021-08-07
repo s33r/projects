@@ -35,7 +35,24 @@ namespace Aaron.MassEffect.CommandLine
                 Name = "config",
                 LongDescription = "Do things related to save files",
                 ShortDescription = "Do things related to save files",
-                OnExecute = Runner.Main,
+                OnExecute = Runner.Execute,
+            };
+
+
+            Builder.AddCommand(command);
+
+
+            return this;
+        }
+
+        public CommandFactory AddOptionCommand()
+        {
+            Command command = new Command
+            {
+                Name = "option",
+                LongDescription = "Do things released to Coalesced.bin files",
+                ShortDescription = "Do things released to Coalesced.bin files",
+                OnExecute = CommandOption.Runner.Execute,
             };
 
             command.Parameters.AddParameter(new Parameter
@@ -47,32 +64,39 @@ namespace Aaron.MassEffect.CommandLine
 
             command.Parameters.AddParameter(new Parameter
             {
+                Name = "set",
+                ShortDescription = "Sets a value in the coalesced.bin file",
+                LongDescription = "Sets a value in the coalesced.bin file",
+            });
+
+            command.Parameters.AddParameter(new Parameter
+            {
                 Name = "file",
-                Alias = "-f",
+                Alias = "f",
             });
 
             command.Parameters.AddParameter(new Parameter
             {
                 Name = "section",
-                Alias = "-s",
+                Alias = "s",
             });
 
             command.Parameters.AddParameter(new Parameter
             {
                 Name = "entry",
-                Alias = "-e",
+                Alias = "e",
             });
 
             command.Parameters.AddParameter(new Parameter
             {
                 Name = "index",
-                Alias = "-i",
+                Alias = "i",
             });
 
             command.Parameters.AddParameter(new Parameter
             {
                 Name = "type",
-                Alias = "-t",
+                Alias = "t",
                 DefaultValue = "fancy",
                 Options =
                 {
@@ -84,15 +108,28 @@ namespace Aaron.MassEffect.CommandLine
 
             command.Parameters.AddParameter(new Parameter
             {
+                Name = "game",
+                Alias = "g",
+                DefaultValue = "me1",
+                Options =
+                {
+                    "me1",
+                    "me2",
+                    "me3",
+                },
+            });
+
+            command.Parameters.AddParameter(new Parameter
+            {
                 Name = "path",
-                Alias = "-p",
+                Alias = "p",
             });
 
 
             command.Parameters.AddParameter(new Parameter
             {
                 Name = "display",
-                Alias = "-d",
+                Alias = "d",
                 DefaultValue = "fancy",
                 Options =
                 {
@@ -103,20 +140,6 @@ namespace Aaron.MassEffect.CommandLine
             });
 
             Builder.AddCommand(command);
-
-
-            return this;
-        }
-
-        public CommandFactory AddOptionCommand()
-        {
-            Builder.AddCommand(new Command
-            {
-                Name = "option",
-                LongDescription = "Do things released to Coalesced.bin files",
-                ShortDescription = "Do things released to Coalesced.bin files",
-                OnExecute = CommandOption.Runner.Main,
-            });
 
             return this;
         }

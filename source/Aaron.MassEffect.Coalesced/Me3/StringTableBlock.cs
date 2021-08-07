@@ -103,10 +103,7 @@ namespace Aaron.MassEffect.Coalesced.Me3
             //TODO: verify that this isn't needed because of a read error
             stringTable.Add(new StringTableEntry("", 0, 0));
 
-            foreach (IRecordCollection record in codec.Container)
-            {
-                stringTable.Add(new StringTableEntry(record.Name));
-            }
+            foreach (IRecord record in codec.Container) { stringTable.Add(new StringTableEntry(record.Name)); }
 
 
             stringTable = stringTable

@@ -63,8 +63,7 @@ namespace Aaron.Core.CommandLine.Tokens
         {
             if (name == null) { throw new ArgumentNullException(nameof(name)); }
 
-            return (name.StartsWith('-') || name.StartsWith("--", StringComparison.InvariantCulture))
-                   && name.Length == 2;
+            return name == "--";
         }
 
         public override string ToString()

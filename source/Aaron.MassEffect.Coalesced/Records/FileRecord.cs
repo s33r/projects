@@ -20,42 +20,42 @@ using Aaron.MassEffect.Core;
 
 namespace Aaron.MassEffect.Coalesced.Records
 {
-    public class FileRecordCollection
-        : IRecordCollection, IEquatable<IRecordCollection>, IList<SectionRecordCollection>
+    public class FileRecord
+        : IRecord, IEquatable<IRecord>, IList<SectionRecord>
     {
-        private List<SectionRecordCollection> _values;
+        private List<SectionRecord> _values;
 
         //Windows can use either slash, but all others need unix style.
         public string FriendlyName =>
             System.IO.Path.GetFileName(Name.Replace("\\", "/"));
 
-        public FileRecordCollection(List<SectionRecordCollection> sections, string name)
+        public FileRecord(List<SectionRecord> sections, string name)
         {
             if (sections == null) { throw new ArgumentNullException(nameof(sections)); }
 
             Name = name;
-            _values = new List<SectionRecordCollection>();
+            _values = new List<SectionRecord>();
 
-            foreach (SectionRecordCollection sectionRecord in sections)
+            foreach (SectionRecord sectionRecord in sections)
             {
                 sectionRecord.Parent = this;
                 _values.Add(sectionRecord);
             }
         }
 
-        public FileRecordCollection(List<SectionRecordCollection> sections)
+        public FileRecord(List<SectionRecord> sections)
             : this(sections, null) { }
 
-        public FileRecordCollection(int count)
-            : this(Utility.CreateList<SectionRecordCollection>(count).ToList()) { }
+        public FileRecord(int count)
+            : this(Utility.CreateList<SectionRecord>(count).ToList()) { }
 
-        public FileRecordCollection()
-            : this(new List<SectionRecordCollection>()) { }
+        public FileRecord()
+            : this(new List<SectionRecord>()) { }
 
-        public FileRecordCollection(string name)
-            : this(new List<SectionRecordCollection>(), name) { }
+        public FileRecord(string name)
+            : this(new List<SectionRecord>(), name) { }
 
-        public void Add(SectionRecordCollection item)
+        public void Add(SectionRecord item)
         {
             if (item == null) { throw new ArgumentNullException(nameof(item)); }
 
@@ -65,17 +65,17 @@ namespace Aaron.MassEffect.Coalesced.Records
 
         public void Clear()
         {
-            foreach (SectionRecordCollection item in _values) { item.Parent = null; }
+            foreach (SectionRecord item in _values) { item.Parent = null; }
 
             _values.Clear();
         }
 
-        public bool Contains(SectionRecordCollection item)
+        public bool Contains(SectionRecord item)
         {
             return _values.Contains(item);
         }
 
-        public void CopyTo(SectionRecordCollection[] array, int arrayIndex)
+        public void CopyTo(SectionRecord[] array, int arrayIndex)
         {
             _values.CopyTo(array, arrayIndex);
         }
@@ -83,7 +83,7 @@ namespace Aaron.MassEffect.Coalesced.Records
         public int Count => _values.Count;
 
 
-        public bool Equals(IRecordCollection other)
+        public bool Equals(IRecord other)
         {
             if (other == null) { return false; }
 
@@ -95,17 +95,17 @@ namespace Aaron.MassEffect.Coalesced.Records
             return _values.GetEnumerator();
         }
 
-        IEnumerator<SectionRecordCollection> IEnumerable<SectionRecordCollection>.GetEnumerator()
+        IEnumerator<SectionRecord> IEnumerable<SectionRecord>.GetEnumerator()
         {
             return _values.GetEnumerator();
         }
 
-        public int IndexOf(SectionRecordCollection item)
+        public int IndexOf(SectionRecord item)
         {
             return _values.IndexOf(item);
         }
 
-        public void Insert(int index, SectionRecordCollection item)
+        public void Insert(int index, SectionRecord item)
         {
             if (item == null) { throw new ArgumentNullException(nameof(item)); }
 
@@ -115,7 +115,7 @@ namespace Aaron.MassEffect.Coalesced.Records
 
         public bool IsReadOnly => false;
 
-        public SectionRecordCollection this[int index]
+        public SectionRecord this[int index]
         {
             get => _values[index];
             set
@@ -129,10 +129,10 @@ namespace Aaron.MassEffect.Coalesced.Records
 
         public string Name { get; set; }
 
-        public IRecordCollection Parent => null;
+        public IRecord Parent => null;
         public string Path => FriendlyName;
 
-        public bool Remove(SectionRecordCollection item)
+        public bool Remove(SectionRecord item)
         {
             if (item == null) { throw new ArgumentNullException(nameof(item)); }
 
@@ -150,7 +150,7 @@ namespace Aaron.MassEffect.Coalesced.Records
         {
             if (obj == null || GetType() != obj.GetType()) { return false; }
 
-            return Equals((IRecordCollection)obj);
+            return Equals((IRecord)obj);
         }
 
         public override int GetHashCode()
@@ -158,20 +158,20 @@ namespace Aaron.MassEffect.Coalesced.Records
             return Name.GetHashCode();
         }
 
-        public void SetValues(IEnumerable<SectionRecordCollection> sections)
+        public void SetValues(IEnumerable<SectionRecord> sections)
         {
             if (sections == null) { throw new ArgumentNullException(nameof(sections)); }
 
-            _values = new List<SectionRecordCollection>();
+            _values = new List<SectionRecord>();
 
-            foreach (SectionRecordCollection section in sections)
+            foreach (SectionRecord section in sections)
             {
                 section.Parent = this;
                 _values.Add(section);
             }
         }
 
-        public void Sort(Comparison<IRecordCollection> comparer)
+        public void Sort(Comparison<IRecord> comparer)
         {
             _values.Sort(comparer);
         }

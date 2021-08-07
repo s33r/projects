@@ -66,6 +66,12 @@ namespace Aaron.Core.CommandLine
             };
         }
 
+        public static void InitializeConsole()
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.OutputEncoding = Encoding.UTF8;
+        }
+
 
         public static void Write(IEnumerable<string> lines)
         {

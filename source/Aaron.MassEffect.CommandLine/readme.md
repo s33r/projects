@@ -30,12 +30,13 @@ Searches the coalesced.bin file and returns everything that matches
 
 | Parameter | Alias | Description
 |-----------|-------|----------------
-| --file    | -f    | The name of the file to find
-| --section | -s    | The name of the section to find
-| --entry   | -e    | The name of the entry to find 
-| --index   | -i    | The index to find
+| --game    | -g    | The game to search. One of me1, me2, me3
+| --file    | -f    | The name of the file to find within coalesced.bin
+| --section | -s    | The name of the section to find within coalesced.bin
+| --entry   | -e    | The name of the entry to find within coalesced.bin
+| --index   | -i    | The index to find within coalesced.bin
+| --path    | -p    | Find the values at the provided path within coalesced.bin. Can only be used with the `--type` or `--display` option, other params are ignored.
 | --type    | -t    | The kind of match to use when searching.
-| --path    | -p    | Find the values at the provided path. Can only be used with the `--path` or `--display` option.
 | --display | -d    | Controls how the output is displayed
 
 When searching, you can use one or more of the file, section, entry or index to return narrow down what your looking for. The `--type` parameter can be used to set how the search is carried out. There are three options:

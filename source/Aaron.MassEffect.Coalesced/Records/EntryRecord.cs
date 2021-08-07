@@ -18,24 +18,24 @@ using System.Collections.Generic;
 
 namespace Aaron.MassEffect.Coalesced.Records
 {
-    public class EntryRecordCollection
-        : IRecordCollection, IEquatable<IRecordCollection>, IList<string>
+    public class EntryRecord
+        : IRecord, IEquatable<IRecord>, IList<string>
     {
         private List<string> _values;
 
-        public EntryRecordCollection(List<string> items, string name)
+        public EntryRecord(List<string> items, string name)
         {
             Name = name;
             _values = new List<string>(items);
         }
 
-        public EntryRecordCollection(List<string> items)
+        public EntryRecord(List<string> items)
             : this(items, null) { }
 
-        public EntryRecordCollection()
+        public EntryRecord()
             : this(new List<string>()) { }
 
-        public EntryRecordCollection(string name)
+        public EntryRecord(string name)
             : this(new List<string>(), name) { }
 
         public void Add(string item)
@@ -60,7 +60,7 @@ namespace Aaron.MassEffect.Coalesced.Records
 
         public int Count => _values.Count;
 
-        public bool Equals(IRecordCollection other)
+        public bool Equals(IRecord other)
         {
             if (other == null) { return false; }
 
@@ -97,7 +97,7 @@ namespace Aaron.MassEffect.Coalesced.Records
 
         public string Name { get; set; }
 
-        public IRecordCollection Parent { get; internal set; }
+        public IRecord Parent { get; internal set; }
 
         public string Path => Parent.Parent.Name + '/' + Parent.Name + '/' + Name;
 
@@ -115,7 +115,7 @@ namespace Aaron.MassEffect.Coalesced.Records
         {
             if (obj == null || GetType() != obj.GetType()) { return false; }
 
-            return Equals((IRecordCollection)obj);
+            return Equals((IRecord)obj);
         }
 
         public override int GetHashCode()

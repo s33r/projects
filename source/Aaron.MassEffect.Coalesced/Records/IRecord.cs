@@ -16,10 +16,10 @@ using System.Collections;
 
 namespace Aaron.MassEffect.Coalesced.Records
 {
-    public interface IRecordCollection : IEnumerable
+    public interface IRecord : IEnumerable
     {
         string Name { get; set; }
-        IRecordCollection Parent { get; }
+        IRecord Parent { get; }
         string Path { get; }
     }
 }

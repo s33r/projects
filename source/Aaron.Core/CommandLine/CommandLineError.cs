@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
+// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
 // 
 // This program is free software; you can redistribute it and/or modify it under the terms of the
 // GNU Lesser General Public License as published by the Free Software Foundation; either version
@@ -12,6 +12,8 @@
 // program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 // MA 02111-1307 USA
 
+using System.Text;
+
 namespace Aaron.Core.CommandLine
 {
     public class CommandLineError
@@ -23,5 +25,25 @@ namespace Aaron.Core.CommandLine
 
         public string Message { get; set; } = string.Empty;
         public string ParameterName { get; set; } = string.Empty;
+
+
+        public override string ToString()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+
+            stringBuilder.Append(Fatal
+                ? Emoji.Skull
+                : Emoji.Cross);
+
+            stringBuilder.Append(' ');
+
+            if (!string.IsNullOrEmpty(CommandName)) { stringBuilder.Append($"[{CommandName}] "); }
+
+            if (!string.IsNullOrEmpty(ParameterName)) { stringBuilder.Append($"{ParameterName} : "); }
+
+            stringBuilder.Append(Message);
+
+            return stringBuilder.ToString();
+        }
     }
 }

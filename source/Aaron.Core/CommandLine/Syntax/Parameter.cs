@@ -100,7 +100,7 @@ namespace Aaron.Core.CommandLine.Syntax
 
         public override string ToString()
         {
-            return $"Parameter: {Name} - {ShortDescription}";
+            return $"Parameter: {Name}:{Value} - {ShortDescription}";
         }
     }
 }

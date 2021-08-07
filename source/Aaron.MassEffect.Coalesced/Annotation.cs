@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
+// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
 // 
 // This program is free software; you can redistribute it and/or modify it under the terms of the
 // GNU Lesser General Public License as published by the Free Software Foundation; either version
@@ -47,43 +47,43 @@ namespace Aaron.MassEffect.Coalesced
         public Annotation()
             : this(Games.Unknown) { }
 
-        public Annotation(Games game, FileRecordCollection fileRecordCollection)
+        public Annotation(Games game, FileRecord fileRecord)
             : this(game)
         {
-            if (fileRecordCollection == null) { throw new ArgumentNullException(nameof(fileRecordCollection)); }
+            if (fileRecord == null) { throw new ArgumentNullException(nameof(fileRecord)); }
 
             Game = game;
-            FileName = fileRecordCollection.Name;
+            FileName = fileRecord.Name;
         }
 
-        public Annotation(FileRecordCollection fileRecordCollection)
-            : this(Games.Unknown, fileRecordCollection) { }
+        public Annotation(FileRecord fileRecord)
+            : this(Games.Unknown, fileRecord) { }
 
-        public Annotation(Games game, SectionRecordCollection sectionRecordCollection)
+        public Annotation(Games game, SectionRecord sectionRecord)
             : this(game)
         {
-            if (sectionRecordCollection == null) { throw new ArgumentNullException(nameof(sectionRecordCollection)); }
+            if (sectionRecord == null) { throw new ArgumentNullException(nameof(sectionRecord)); }
 
-            FileName = sectionRecordCollection.Parent.Name;
-            SectionName = sectionRecordCollection.Name;
+            FileName = sectionRecord.Parent.Name;
+            SectionName = sectionRecord.Name;
         }
 
-        public Annotation(SectionRecordCollection sectionRecordCollection)
-            : this(Games.Unknown, sectionRecordCollection) { }
+        public Annotation(SectionRecord sectionRecord)
+            : this(Games.Unknown, sectionRecord) { }
 
-        public Annotation(Games game, EntryRecordCollection entryRecordCollection)
+        public Annotation(Games game, EntryRecord entryRecord)
             : this(game)
         {
-            if (entryRecordCollection == null) { throw new ArgumentNullException(nameof(entryRecordCollection)); }
+            if (entryRecord == null) { throw new ArgumentNullException(nameof(entryRecord)); }
 
             Game = game;
-            FileName = entryRecordCollection.Parent.Parent.Name;
-            SectionName = entryRecordCollection.Parent.Name;
-            EntryName = entryRecordCollection.Name;
+            FileName = entryRecord.Parent.Parent.Name;
+            SectionName = entryRecord.Parent.Name;
+            EntryName = entryRecord.Name;
         }
 
-        public Annotation(EntryRecordCollection entryRecordCollection)
-            : this(Games.Unknown, entryRecordCollection) { }
+        public Annotation(EntryRecord entryRecord)
+            : this(Games.Unknown, entryRecord) { }
 
 
         public Annotation GetWireVersion()

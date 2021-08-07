@@ -27,14 +27,14 @@ namespace Aaron.MassEffect.CommandLine
         {
             List<Annotation> annotations = new List<Annotation>();
 
-            foreach (FileRecordCollection fileRecord in container.Files)
+            foreach (FileRecord fileRecord in container.Files)
             {
                 annotations.Add(new Annotation(game, fileRecord));
 
-                foreach (SectionRecordCollection sectionRecord in fileRecord)
+                foreach (SectionRecord sectionRecord in fileRecord)
                 {
                     annotations.Add(new Annotation(game, sectionRecord));
-                    foreach (EntryRecordCollection entryRecord in sectionRecord)
+                    foreach (EntryRecord entryRecord in sectionRecord)
                     {
                         annotations.Add(new Annotation(game, entryRecord));
                     }

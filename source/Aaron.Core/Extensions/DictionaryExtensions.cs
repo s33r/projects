@@ -13,15 +13,19 @@
 // MA 02111-1307 USA
 
 using System;
-using Aaron.Core.CommandLine.Syntax;
+using System.Collections.Generic;
 
-namespace Aaron.MassEffect.CommandLine.CommandConfig
+namespace Aaron.Core.Extensions
 {
-    internal static class Runner
+    public static class DictionaryExtensions
     {
-        public static void Execute(ParsedCommandLine commandLine)
+        public static TV QuickGet<TK, TV>(this Dictionary<TK, TV> dictionary, TK key)
         {
-            Console.WriteLine(commandLine.Command);
+            if (dictionary is null) { throw new ArgumentNullException(nameof(dictionary)); }
+
+            if (dictionary.ContainsKey(key)) { return dictionary[key]; }
+
+            return default(TV);
         }
     }
 }

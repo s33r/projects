@@ -12,9 +12,11 @@
 // program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 // MA 02111-1307 USA
 
-using System;
+using System.Linq;
 using Aaron.Core.CommandLine;
+using Aaron.Core.CommandLine.Syntax;
 using Aaron.Core.JsonConfig;
+using Aaron.MassEffect.Core;
 
 namespace Aaron.MassEffect.CommandLine
 {
@@ -22,15 +24,11 @@ namespace Aaron.MassEffect.CommandLine
     {
         private static void Main(string[] args)
         {
+            Render.InitializeConsole();
             ShowBanner();
 
-            MassEffectCliConfiguration defaultConfig = new MassEffectCliConfiguration
-            {
-                GameLocation =
-                    @"C:\Program Files (x86)\Steam\steamapps\common\Mass Effect Legendary Edition\Game\",
-            };
-
             ConfigurationHost.Instance.Load<MassEffectCliConfiguration>("me/config");
+            MassEffectConfiguration.Instance.Initialize();
 
             ArgumentParser parser = new ArgumentParser();
 
@@ -39,26 +37,30 @@ namespace Aaron.MassEffect.CommandLine
                 .AddOptionCommand()
                 .AddSaveCommand();
 
-            //TODO: Debug
-
 #if DEBUG
-            string[] debugArgs = { "option" };
-
-            parser.Run(debugArgs);
+            string[] debugArgs = { "option", "get", "-t", "simple", "-f", @"*.ini" };
+            ParsedCommandLine commandLine = parser.Parse(debugArgs);
 #else
-            parser.Run(args);
+            ParsedCommandLine commandLine = parser.Parse(debugArgs);
 #endif
+
+            if (commandLine.HasErrors) { Render.Write(commandLine.Errors.Select(error => error.ToString())); }
+
+            if (commandLine.HasFatalErrors) { return; }
+
+
+            parser.Run(commandLine);
         }
 
         private static void ShowBanner()
         {
-            foreach (string emote in Emoji.ListEmoji()) { Console.WriteLine($"[{emote.Length}] {emote}  |"); }
-
+#if DEBUG
             Render.Write(Render.ColumnHeaders());
+#endif
             Render.Write(Render.Banner(
-                $"{Emoji.Star} Mass Effect Editor {Emoji.Star}", //20 + 2 + 2
+                $"{Emoji.StarGlow} Mass Effect Editor {Emoji.StarGlow}", //20 + 2 + 2
                 "Copyright ©️ 2021 - Aaron C. Willows",
-                "This is a message"
+                "Alpha 1"
             ));
         }
 
