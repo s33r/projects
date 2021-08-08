@@ -12,8 +12,7 @@
 // program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 // MA 02111-1307 USA
 
-using System;
-using Aaron.Automation.Cli.Commands;
+using System.Linq;
 using Aaron.Core.CommandLine;
 using Aaron.Core.CommandLine.Syntax;
 
@@ -23,30 +22,28 @@ namespace Aaron.Automation.Cli
     {
         private static void Main(string[] args)
         {
-            CommandRunner runner = new CommandRunner("ls");
-            runner.Execute();
-
+            Render.InitializeConsole();
+            Render.Write(Render.Banner(
+                $"{Emoji.Gear} Repo Automation {Emoji.Gear}",
+                "Copyright ©️ 2021 - Aaron C. Willows",
+                "Alpha"
+            ));
 
             ArgumentParser parser = new ArgumentParser();
+            new CommandFactory(parser.Commands)
+                .AddInitCommand();
 
-            _ = parser.Commands.AddCommand(Clean.GetCommand())
-                      .AddCommand(NewProject.GetCommand())
-                      .AddCommand(Publish.GetCommand());
+#if DEBUG
+            string[] debugArgs = { "init", "-t", "web", "-n", "init test" };
+            ParsedCommandLine commandLine = parser.Parse(debugArgs);
+#else
+            ParsedCommandLine commandLine = parser.Parse(args);
+#endif
+            if (commandLine.HasErrors) { Render.Write(commandLine.Errors.Select(error => error.ToString())); }
 
+            if (commandLine.HasFatalErrors) { return; }
 
-            Run(args, parser);
-        }
-
-        private static void Run(string[] args, ArgumentParser parser)
-        {
-            Console.WriteLine("Build CLI");
-            Console.WriteLine("args = {0}", string.Join(' ', args));
-
-            ParsedCommandLine commandLine = parser.Run(args);
-
-            if (commandLine.HasErrors) { Console.WriteLine($"{commandLine.Errors.Count} Errors"); }
-
-            Console.WriteLine("-- Complete --");
+            parser.Run(commandLine);
         }
     }
 }

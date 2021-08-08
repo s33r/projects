@@ -12,29 +12,12 @@
 // program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 // MA 02111-1307 USA
 
-using System;
 using Aaron.Core.CommandLine.Syntax;
 
-namespace Aaron.Automation.Cli.Commands
+namespace Aaron.Core.CommandLine
 {
-    internal class Publish
+    public interface IRunner
     {
-        public static Command GetCommand()
-        {
-            Command result = new Command
-            {
-                Name = "publish",
-                ShortDescription = "Publishes everything",
-                LongDescription = "Publishes everything",
-                OnExecute = OnExecute,
-            };
-
-            return result;
-        }
-
-        private static void OnExecute(ParsedCommandLine commandLine)
-        {
-            throw new NotImplementedException();
-        }
+        void Execute(ParsedCommandLine commandLine);
     }
 }

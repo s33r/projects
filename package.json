@@ -8,7 +8,8 @@
   "scripts": {
     "clean": "dotnet clean",
     "build": "dotnet build -c Release --warnaserror",
-    "integrate": "npm run clean && npm run build"
+    "integrate": "npm run clean && npm run build",
+    "init": "./-output/Aaron.Automation.Cli/Release/Aaron.Automation.Cli.exe"
   },
   "author": "Aaron Willows (aaron@aaronwillows.com)",
   "license": "LGPL-3.0-or-later",
