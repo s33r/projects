@@ -25,7 +25,7 @@ jobs:
     - name: Build
       run: npm run integrate
     - name: List Files
-      run: cd ./-output/Aaron.MassEffect.CommandLine/Release/me/ && ls
+      run: cd ./-output/Aaron.MassEffect.CommandLine/Release/ && ls
       if: always()
     - name: Test
       run: dotnet test --no-build --verbosity normal
