@@ -19,6 +19,8 @@ jobs:
         dotnet-version: 5.0.x
     - name: Restore dependencies
       run: dotnet restore
+    - name: List Files
+      run: ls
     - name: Build
       run: npm run integrate
     - name: Test
