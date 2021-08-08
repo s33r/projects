@@ -57,3 +57,6 @@ dotnet_diagnostic.IDE0058.severity = none
 
 # CA1710: Identifiers should have correct suffix
 dotnet_diagnostic.CA1710.severity = suggestion
+
+# IDE0034: Simplify 'default' expression
+dotnet_diagnostic.IDE0034.severity = none

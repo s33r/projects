@@ -75,7 +75,7 @@ namespace Aaron.MassEffect.CommandLine.CommandOption
             while (matchers.Count > 0)
             {
                 string currentMatcher = matchers.Dequeue();
-                int offset = currentValue.IndexOf(currentMatcher);
+                int offset = currentValue.IndexOf(currentMatcher, StringComparison.InvariantCultureIgnoreCase);
 
                 if (offset >= 0) { currentValue = currentValue.Substring(offset + currentMatcher.Length); }
                 else { return false; }

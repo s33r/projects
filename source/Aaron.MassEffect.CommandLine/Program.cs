@@ -41,7 +41,7 @@ namespace Aaron.MassEffect.CommandLine
             string[] debugArgs = { "option", "get", "-t", "simple", "-f", @"*.ini" };
             ParsedCommandLine commandLine = parser.Parse(debugArgs);
 #else
-            ParsedCommandLine commandLine = parser.Parse(debugArgs);
+            ParsedCommandLine commandLine = parser.Parse(args);
 #endif
 
             if (commandLine.HasErrors) { Render.Write(commandLine.Errors.Select(error => error.ToString())); }

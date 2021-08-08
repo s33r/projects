@@ -63,8 +63,6 @@ namespace Aaron.MassEffect.Core
         }
 
 
-        public void Save() { }
-
         #region Singleton
 
         // ReSharper disable once InconsistentNaming

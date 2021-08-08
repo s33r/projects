@@ -23,6 +23,11 @@ namespace Aaron.MassEffect.CommandLine
     // ReSharper disable once UnusedMember.Global
     internal static class TestingStuff
     {
+        public static void TestStuff()
+        {
+            TestAnnotations();
+        }
+
         private static void BuildAnnotations(Games game, Container container, string outputLocation)
         {
             List<Annotation> annotations = new List<Annotation>();
