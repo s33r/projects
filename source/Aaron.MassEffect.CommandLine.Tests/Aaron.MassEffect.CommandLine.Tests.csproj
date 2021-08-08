@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\source\Aaron.MassEffect.CommandLine\Aaron.MassEffect.CommandLine.csproj" />
+    <ProjectReference Include="..\Aaron.MassEffect.CommandLine\Aaron.MassEffect.CommandLine.csproj" />
   </ItemGroup>
 
 </Project>

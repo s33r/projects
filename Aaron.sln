@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aaron.MassEffect.CommandLin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aaron.MassEffect.Web", "source\Aaron.MassEffect.Web\Aaron.MassEffect.Web.csproj", "{469A95B7-F13F-42BE-B17A-359302F9CCD9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aaron.MassEffect.CommandLine.Tests", "Aaron.MassEffect.CommandLine.Tests\Aaron.MassEffect.CommandLine.Tests.csproj", "{8C461E6C-45C8-4210-9A00-E2A75EB466E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aaron.MassEffect.CommandLine.Tests", "source\Aaron.MassEffect.CommandLine.Tests\Aaron.MassEffect.CommandLine.Tests.csproj", "{8C461E6C-45C8-4210-9A00-E2A75EB466E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
