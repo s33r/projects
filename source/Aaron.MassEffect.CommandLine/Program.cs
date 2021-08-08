@@ -27,7 +27,7 @@ namespace Aaron.MassEffect.CommandLine
             Render.InitializeConsole();
             ShowBanner();
 
-            ConfigurationHost.Instance.Load<MassEffectCliConfiguration>("me/config");
+            ConfigurationHost.Instance.Load<MassEffectCliConfiguration>("config");
             MassEffectConfiguration.Instance.Initialize();
 
             ArgumentParser parser = new ArgumentParser();
