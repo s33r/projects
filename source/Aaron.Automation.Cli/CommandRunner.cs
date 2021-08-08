@@ -18,7 +18,7 @@ namespace Aaron.Automation.Cli
 {
     internal class CommandRunner
     {
-        public static readonly string POWERSHELL = "powershell";
+        public const string POWERSHELL = "powershell";
 
         public static bool Execute(string command)
         {
