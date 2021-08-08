@@ -139,7 +139,9 @@ namespace Aaron.Core.CommandLine.Syntax
 
             foreach (Parameter requiredParam in requiredParams)
             {
-                if (!tokenSet.Contains(requiredParam.Name))
+                bool tokenNotFound = !(tokenSet.Contains(requiredParam.Name) || tokenSet.Contains(requiredParam.Alias));
+
+                if (tokenNotFound)
                 {
                     CommandLineError error = new CommandLineError
                     {

@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
+// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
 // 
 // This program is free software; you can redistribute it and/or modify it under the terms of the
 // GNU Lesser General Public License as published by the Free Software Foundation; either version
@@ -12,34 +12,23 @@
 // program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 // MA 02111-1307 USA
 
-using System;
 using System.Diagnostics;
 
 namespace Aaron.Automation.Cli
 {
     internal class CommandRunner
     {
-        public readonly string POWERSHELL = "powershell";
+        public const string POWERSHELL = "powershell";
 
-        public string CommandLine { get; set; }
-
-        public CommandRunner(string commandLine)
+        public static bool Execute(string command)
         {
-            CommandLine = commandLine;
-        }
-
-
-        public void Execute()
-        {
-            ProcessStartInfo startInfo = new ProcessStartInfo(POWERSHELL, CommandLine);
-
+            ProcessStartInfo startInfo = new ProcessStartInfo(POWERSHELL, command);
 
             Process process = Process.Start(startInfo);
 
             process.WaitForExit();
-            bool success = process.ExitCode == 0;
 
-            Console.WriteLine($"-- {(success ? "success" : "fail")} --");
+            return process.ExitCode == 0;
         }
     }
 }
