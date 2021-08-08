@@ -21,9 +21,11 @@ jobs:
       run: dotnet restore
     - name: List Files
       run: ls
+      if: always()
     - name: Build
       run: npm run integrate
     - name: List Files
       run: ls
+      if: always()
     - name: Test
       run: dotnet test --no-build --verbosity normal
