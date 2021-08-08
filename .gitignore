@@ -1,4 +1,5 @@
 **/.output
+**/-output
 **/node_modules
 **/.artifact
 **/obj
