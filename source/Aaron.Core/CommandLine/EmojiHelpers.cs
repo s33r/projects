@@ -41,6 +41,7 @@ namespace Aaron.Core.CommandLine
             _widthOverrides[Star] = 2;
             _widthOverrides[Cross] = 2;
             _widthOverrides[Sparkles] = 2;
+            _widthOverrides[Gear] = 2;
         }
 
         public static int CountEmoji(string text)

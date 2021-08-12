@@ -12,6 +12,7 @@
 // program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 // MA 02111-1307 USA
 
+using System;
 using System.Linq;
 using Aaron.Core.CommandLine;
 using Aaron.Core.CommandLine.Syntax;
@@ -22,6 +23,10 @@ namespace Aaron.Automation.Cli
     {
         private static void Main(string[] args)
         {
+            foreach (string arg in args) { Console.WriteLine(arg); }
+
+            Console.WriteLine();
+
             Render.InitializeConsole();
             Render.Write(Render.Banner(
                 $"{Emoji.Gear} Repo Automation {Emoji.Gear}",

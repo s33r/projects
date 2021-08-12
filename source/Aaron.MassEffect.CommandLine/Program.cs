@@ -27,6 +27,9 @@ namespace Aaron.MassEffect.CommandLine
             Render.InitializeConsole();
             ShowBanner();
 
+            TetsUnrealPackage.Test();
+            return;
+
             ConfigurationHost.Instance.Load<MassEffectCliConfiguration>("config");
             MassEffectConfiguration.Instance.Initialize();
 

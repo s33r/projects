@@ -14,6 +14,7 @@
     <ProjectReference Include="..\Aaron.Core\Aaron.Core.csproj" />
     <ProjectReference Include="..\Aaron.MassEffect.Coalesced\Aaron.MassEffect.Coalesced.csproj" />
     <ProjectReference Include="..\Aaron.MassEffect.Core\Aaron.MassEffect.Core.csproj" />
+    <ProjectReference Include="..\Aaron.Masseffect.UnrealPackage\Aaron.Masseffect.UnrealPackage.csproj" />
   </ItemGroup>
 
   <ItemGroup>
