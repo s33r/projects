@@ -12,29 +12,19 @@
 // program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 // MA 02111-1307 USA
 
-using System.Collections.Generic;
-using System.Linq;
-using Aaron.Factory.CommandLine.Data;
+using System;
 
-namespace Aaron.Factory.CommandLine
+namespace Aaron.Core.Extensions
 {
-    internal class Program
+    public static class DoubleExtensions
     {
-        private const int TARGET_INSTANCES = 1;
-        private const string TARGET_ITEM = "Orbital Collector";
-
-        private static void Main()
+        public static double Truncate(this double value, int length)
         {
-            RecipeTable table = new RecipeTable();
-            table.Load("./Data/recipes.csv", RecipeTableFormat.Csv);
-            table.Save();
+            double characteristic = Math.Truncate(value);
+            double mantissa = value - characteristic;
+            double factor = Math.Pow(10, length);
 
-            ProductionTarget target = new ProductionTarget(TARGET_ITEM, table, TARGET_INSTANCES);
-            target.BuildTable(table);
-
-            List<Recipe> recipeList = target.GetRecipes(true, TargetSortMode.Instances).ToList();
-
-            ReportMaker.CreateReport("./report.md", recipeList);
+            return characteristic + (Math.Truncate(mantissa * factor) / factor);
         }
     }
 }

@@ -13,6 +13,8 @@
 // MA 02111-1307 USA
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Aaron.Core.Extensions
@@ -32,20 +34,51 @@ namespace Aaron.Core.Extensions
 
             if (padding is null) { throw new ArgumentNullException(nameof(padding)); }
 
-            int paddingCount = (totalLength - overrideStringLength) / padding.Length / 2;
+
+            int paddingCount = totalLength - overrideStringLength;
+            if (paddingCount % 2 != 0) { paddingCount++; }
+
+            paddingCount = paddingCount / padding.Length / 2;
+
+            int leftPad = paddingCount;
+            int rightPad = totalLength - (paddingCount + overrideStringLength);
 
             if (paddingCount <= 0) { return str; }
 
             StringBuilder stringBuilder = new StringBuilder();
 
-            for (int i = 0; i < paddingCount; i++) { stringBuilder.Append(padding); }
+            for (int i = 0; i < leftPad; i++) { stringBuilder.Append(padding); }
 
             stringBuilder.Append(str);
 
-            for (int i = 0; i < paddingCount; i++) { stringBuilder.Append(padding); }
-
+            for (int i = 0; i < rightPad; i++) { stringBuilder.Append(padding); }
 
             return stringBuilder.ToString();
+        }
+
+        public static string Mask(this string str, char mask, IEnumerable<char> whitelist)
+        {
+            if (str is null) { throw new ArgumentNullException(nameof(str)); }
+
+            HashSet<char> hash = new HashSet<char>(whitelist.Distinct());
+            char[] chars = str.ToCharArray();
+
+            for (int i = 0; i < chars.Length; i++)
+            {
+                if (!hash.Contains(chars[i])) { chars[i] = mask; }
+            }
+
+            return new string(chars);
+        }
+
+        public static string Mask(this string str, char mask)
+        {
+            return Mask(str, mask, Array.Empty<char>());
+        }
+
+        public static string Mask(this string str, char mask, char keep)
+        {
+            return Mask(str, mask, new[] { keep });
         }
 
         public static string PadLeft(this string str, int totalLength, int overrideStringLength, string padding)

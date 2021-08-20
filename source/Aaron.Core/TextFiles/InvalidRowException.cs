@@ -12,15 +12,16 @@
 // program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 // MA 02111-1307 USA
 
-using System.Collections.Generic;
+using System;
 
-namespace Aaron.Factory.CommandLine.Data
+namespace Aaron.Core.TextFiles
 {
-    public class Building
+    public class InvalidRowException : Exception
     {
-        public Item BuildingItem { get; set; }
-        public Recipe CurrentRecipe { get; set; }
-        public List<Recipe> SupportedRecipes { get; set; } = new List<Recipe>();
-        public double TimeFactor { get; set; } = 1;
+        public InvalidRowException(string message) : base(message) { }
+
+        public InvalidRowException(string message, Exception innerException) : base(message, innerException) { }
+
+        public InvalidRowException() { }
     }
 }

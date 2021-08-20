@@ -1,4 +1,4 @@
-// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
+﻿// Copyright (C) 2021 Aaron C. Willows (aaron@aaronwillows.com)
 // 
 // This program is free software; you can redistribute it and/or modify it under the terms of the
 // GNU Lesser General Public License as published by the Free Software Foundation; either version
@@ -12,26 +12,11 @@
 // program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 // MA 02111-1307 USA
 
-namespace Aaron.Factory.CommandLine.Data
-{
-    public enum PortDirection
-    {
-        In,
-        Out,
-    }
+using System.Diagnostics.CodeAnalysis;
 
-    public enum PortType
-    {
-        Normal,
-        Liquid,
-    }
-
-    public class Port
-    {
-        public PortDirection Direction { get; set; }
-        public Item Item { get; set; }
-        public PortType PortType { get; set; }
-        public int Quantity { get; set; }
-        public Recipe Recipe { get; set; }
-    }
-}
+[assembly:
+    SuppressMessage("Usage", "CA2227:Collection properties should be read only", Justification = "<Pending>",
+        Scope = "member", Target = "~P:Aaron.Core.TextFiles.Csv.ParseResult.Entries")]
+[assembly:
+    SuppressMessage("Usage", "CA2227:Collection properties should be read only", Justification = "<Pending>",
+        Scope = "member", Target = "~P:Aaron.Core.TextFiles.Csv.ParseResult.Headers")]

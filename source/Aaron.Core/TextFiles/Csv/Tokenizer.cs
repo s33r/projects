@@ -12,11 +12,14 @@
 // program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 // MA 02111-1307 USA
 
-namespace Aaron.Factory.CommandLine.Data
+namespace Aaron.Core.TextFiles.Csv
 {
-    public class Item
+    internal enum Tokens
     {
-        public string Description { get; set; }
-        public string Name { get; set; }
+        Comment,
+        Value,
+        Delimtor,
     }
+
+    internal static class Tokenizer { }
 }

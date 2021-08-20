@@ -12,29 +12,13 @@
 // program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 // MA 02111-1307 USA
 
-using System.Collections.Generic;
-using System.Linq;
-using Aaron.Factory.CommandLine.Data;
-
-namespace Aaron.Factory.CommandLine
+namespace Aaron.Core.TextFiles.Csv
 {
-    internal class Program
+    public class CsvOptions
     {
-        private const int TARGET_INSTANCES = 1;
-        private const string TARGET_ITEM = "Orbital Collector";
-
-        private static void Main()
-        {
-            RecipeTable table = new RecipeTable();
-            table.Load("./Data/recipes.csv", RecipeTableFormat.Csv);
-            table.Save();
-
-            ProductionTarget target = new ProductionTarget(TARGET_ITEM, table, TARGET_INSTANCES);
-            target.BuildTable(table);
-
-            List<Recipe> recipeList = target.GetRecipes(true, TargetSortMode.Instances).ToList();
-
-            ReportMaker.CreateReport("./report.md", recipeList);
-        }
+        public char CommentCharacter { get; set; } = '#';
+        public char Delimiter { get; set; } = ',';
+        public bool HasHeaders { get; set; } = true;
+        public char Quote { get; set; } = '"';
     }
 }

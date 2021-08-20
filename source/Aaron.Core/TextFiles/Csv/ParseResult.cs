@@ -14,27 +14,37 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Aaron.Factory.CommandLine.Data;
 
-namespace Aaron.Factory.CommandLine
+namespace Aaron.Core.TextFiles.Csv
 {
-    internal class Program
+    public class ParseResult
     {
-        private const int TARGET_INSTANCES = 1;
-        private const string TARGET_ITEM = "Orbital Collector";
+        public List<List<string>> Entries { get; set; } = new List<List<string>>();
+        public List<string> Headers { get; set; } = new List<string>();
 
-        private static void Main()
+        public CsvOptions Options { get; }
+
+        public ParseResult(CsvOptions options)
         {
-            RecipeTable table = new RecipeTable();
-            table.Load("./Data/recipes.csv", RecipeTableFormat.Csv);
-            table.Save();
+            Options = options;
+        }
 
-            ProductionTarget target = new ProductionTarget(TARGET_ITEM, table, TARGET_INSTANCES);
-            target.BuildTable(table);
 
-            List<Recipe> recipeList = target.GetRecipes(true, TargetSortMode.Instances).ToList();
+        public List<Dictionary<string, string>> ToDictionary()
+        {
+            return Entries.Select(row => MapRow(row)).ToList();
+        }
 
-            ReportMaker.CreateReport("./report.md", recipeList);
+
+        private Dictionary<string, string> MapRow(List<string> row)
+        {
+            List<string> headers = Headers.Select(h => h.ToUpperInvariant().Trim()).ToList();
+
+            Dictionary<string, string> result = new Dictionary<string, string>(row.Count);
+
+            for (int i = 0; i < row.Count; i++) { result.Add(headers[i], row[i]); }
+
+            return result;
         }
     }
 }
