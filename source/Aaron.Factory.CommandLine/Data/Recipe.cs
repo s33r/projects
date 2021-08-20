@@ -22,7 +22,7 @@ namespace Aaron.Factory.CommandLine.Data
 {
     public class Recipe : IEquatable<Recipe>
     {
-        public List<IPort> AllPorts { get; }
+        [JsonIgnore] public List<IPort> AllPorts { get; }
         [JsonIgnore] public double Efficency { get; set; }
 
         public InputPort Input1 { get; }
@@ -30,9 +30,15 @@ namespace Aaron.Factory.CommandLine.Data
         public InputPort Input3 { get; }
         public InputPort Input4 { get; }
         public InputPort Input5 { get; }
-        public List<InputPort> InputPorts { get; }
+        [JsonIgnore] public List<InputPort> InputPorts { get; }
 
         [JsonIgnore] public int Instances { get; set; }
+
+        /// <summary>
+        ///     Returns true if this recipe has no inputs
+        /// </summary>
+        [JsonIgnore]
+        public bool IsTerminal => !InputPorts.Aggregate(false, (r, p) => r || p.Active);
 
         public string Name { get; set; }
         public OutputPort Output1 { get; }
@@ -40,7 +46,7 @@ namespace Aaron.Factory.CommandLine.Data
         public OutputPort Output3 { get; }
         public OutputPort Output4 { get; }
         public OutputPort Output5 { get; }
-        public List<OutputPort> OutputPorts { get; }
+        [JsonIgnore] public List<OutputPort> OutputPorts { get; }
         public double Time { get; set; }
 
         public Recipe()
