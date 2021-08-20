@@ -12,6 +12,7 @@
 // program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 // MA 02111-1307 USA
 
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Aaron.Core.CommandLine;
 using Aaron.Core.CommandLine.Syntax;
@@ -22,6 +23,8 @@ namespace Aaron.MassEffect.CommandLine
 {
     internal class Program
     {
+        [SuppressMessage("Usage", "CA1801:Review unused parameters",
+            Justification = "These are only used in Release mode.")]
         private static void Main(string[] args)
         {
             Render.InitializeConsole();
