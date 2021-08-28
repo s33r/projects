@@ -6,6 +6,7 @@
   "type": "module",
   "main": "./automation/cli/index.js",
   "scripts": {
+    "serve": "http-server ./source/Aaron.Life",
     "clean": "dotnet clean",
     "build": "dotnet build -c Release --warnaserror",
     "integrate": "npm run clean && npm run build",
