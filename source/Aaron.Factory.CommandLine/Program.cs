@@ -20,19 +20,30 @@ namespace Aaron.Factory.CommandLine
 {
     internal class Program
     {
-        private const int TARGET_INSTANCES = 1;
-        private const string TARGET_ITEM = "Orbital Collector";
-
         private static void Main()
         {
             RecipeTable table = new RecipeTable();
             table.Load("./Data/recipes.csv", RecipeTableFormat.Csv);
             table.Save();
 
-            ProductionTarget target = new ProductionTarget(TARGET_ITEM, table, TARGET_INSTANCES);
-            target.BuildTable(table);
+            ProductionTargetCollection targets = new ProductionTargetCollection
+            {
+                new ProductionTarget("Sorter Mk. 3", table, 1),
+                new ProductionTarget("Conveyer Belt Mk. 3", table, 1),
+                new ProductionTarget("Assembling Machine Mk. 2", table, 1),
+                new ProductionTarget("Mining Machine", table, 1),
+                new ProductionTarget("Arc Smelter", table, 1),
+                new ProductionTarget("Splitter", table, 1),
+                new ProductionTarget("Tesla Tower", table, 1),
+                new ProductionTarget("Foundation", table, 1),
+                new ProductionTarget("Storage Mk. 1", table, 1),
+                new ProductionTarget("Storage Mk. 2", table, 1),
+                new ProductionTarget("Storage Tank", table, 1),
+                new ProductionTarget("Solar Panel", table, 1),
+            }.BuildTables(table).Flatten();
 
-            List<Recipe> recipeList = target.GetRecipes(true, TargetSortMode.Instances).ToList();
+
+            List<Recipe> recipeList = targets.GetRecipes().Where(r => !r.IsTerminal).ToList();
 
             ReportMaker.CreateReport("./report.md", recipeList);
         }

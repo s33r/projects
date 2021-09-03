@@ -36,6 +36,14 @@ namespace Aaron.Factory.CommandLine
         public int PathLength { get; private set; }
         public Recipe Recipe { get; }
 
+
+        public ProductionTarget(Recipe recipe)
+        {
+            if (recipe is null) { throw new ArgumentNullException(nameof(recipe)); }
+
+            Recipe = new Recipe(recipe);
+        }
+
         public ProductionTarget(string item, RecipeTable table, int instances)
         {
             if (table is null) { throw new ArgumentNullException(nameof(table)); }
@@ -51,6 +59,13 @@ namespace Aaron.Factory.CommandLine
             Recipe = table.FindOutput(item).First();
             double baseSupply = Recipe.FindOutput(item).Supply;
             Recipe.Instances = (int)Math.Ceiling(supply / baseSupply);
+        }
+
+        public ProductionTarget(string item, RecipeTable table)
+        {
+            if (table is null) { throw new ArgumentNullException(nameof(table)); }
+
+            Recipe = table.FindOutput(item).First();
         }
 
 
