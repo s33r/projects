@@ -1,1 +1,1 @@
-./-output/Aaron.Automation.Cli/Release/Aaron.Automation.Cli.exe $args
+./-output/Aaron.Automation/Release/Aaron.Automation.exe $args

@@ -1,0 +1,35 @@
+LINE_END    = "\n";
+SEMI_COLON  = ";";
+BRACE_OPEN  = "{";
+BRACE_CLOSE = "}";
+HASH        = "#";
+LETTER    = "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" 
+          | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" | "a" | "b" | "c" | "d" 
+          | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" 
+          | "t" | "u" | "v" | "w" | "x" | "y" | "z" ;
+HEX_DIGIT = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "A" | "B" | "C" | "D" | "E"
+          | "F" | "a" | "b" | "c" | "d" | "e" | "f" ;
+DIGIT     = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
+IDENTIFER = LETTER , { LETTER | DIGIT | "_" };
+NUMBER    = (["0x" | "0X"] { HEX_DIGIT }) | { DIGIT };
+
+ENDIAN_SIGIL = "l" | "b" | "L" | "B";
+SIGN_SIGIL   = "s" | "u" | "S" | "U";
+SIZE         = "byte" | "short" | "int" | "long"; 
+CONST = "=" NUMBER | IDENTIFER;
+
+FIELD  = [ENDIAN_SIGIL] [SIGN_SIGIL] SIZE IDENTIFER [CONST] SEMI_COLON [{all_characters}] LINE_END;
+RECORD = "struct", BRACE_OPEN {FIELD} BRACE_CLOSE;
+FUNCTION = "function" IDENTIFER BRACE_OPEN BRACE_CLOSE;
+
+
+
+struct Header {
+  l s int MagicWord = 0x666D726D;
+  l s int Version;
+  l s int 
+}
+
+function calculateSize {
+
+}
